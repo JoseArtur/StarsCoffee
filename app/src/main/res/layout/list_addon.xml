@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/textView_addonPrice"
-        android:text=" + Tk 30"
+        android:text=" + Not Defined"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="normal"

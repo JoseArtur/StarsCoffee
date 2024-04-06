@@ -100,7 +100,7 @@
                     android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/textView_subTotal"
-                    android:text="Tk 570"
+                    android:text="Not Defined"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -126,7 +126,7 @@
                     android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/textView_deliveryFee"
-                    android:text="Tk 30"
+                    android:text="Not Defined"
                     android:textColor="@color/dark_grey"
                     android:textStyle="bold"
                     android:textSize="14sp"
@@ -210,7 +210,7 @@
                 android:layout_weight="1"/>
             <TextView
                 android:id="@+id/textView_total"
-                android:text="Tk 600"
+                android:text="Not Defined"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="16sp"

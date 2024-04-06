@@ -21,7 +21,7 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val sharedPreferences = getSharedPreferences("QuickFoods", MODE_PRIVATE)
+            val sharedPreferences = getSharedPreferences("StarsCoffee", MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
             editor.putString("email", email)

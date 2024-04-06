@@ -31,7 +31,7 @@ class CartListAdapter (val context: Context, val list: List<Foods>, val listener
         val imageView_foods = holder.imageView_foods
         Picasso.get().load(imageUrl).into(imageView_foods)
         holder.textView_foodName.setText(item.foodName)
-        holder.textView_foodPrice.setText(item.price.toString() + " Tk")
+        holder.textView_foodPrice.setText(item.price.toString() + " €")
 
 
         holder.cartList_container.setOnClickListener {

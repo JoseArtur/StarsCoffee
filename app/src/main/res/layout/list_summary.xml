@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/textView_foodPrice"
-                android:text="Tk 150"
+                android:text="Not Defined"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:maxLines="2"

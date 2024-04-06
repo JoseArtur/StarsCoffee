@@ -20,7 +20,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textAlignment="textStart"
-            android:text="Tk 120 off on your first order!"
+            android:text="Not Defined off on your first order!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
@@ -45,7 +45,7 @@
                 android:textStyle="bold"
                 android:textAlignment="textStart"
                 android:paddingTop="4dp"
-                android:text="120 Tk."
+                android:text="Not Defined"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>

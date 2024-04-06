@@ -92,7 +92,7 @@
             <TextView
                 android:id="@+id/textView_restaurantDeliveryPrice"
                 android:layout_below="@+id/textView_restaurantCuisine"
-                android:text="Tk 60"
+                android:text="Not Defined"
                 android:textColor="@color/dark_grey"
                 android:paddingStart="8dp"
                 android:layout_marginTop="4dp"

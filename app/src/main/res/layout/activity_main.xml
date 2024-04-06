@@ -24,35 +24,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="16dp"
-                    android:orientation="vertical"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/imageButton_love"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/textView_location"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textAlignment="textStart"
-                        android:textSize="18sp"
-                        android:padding="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Work"/>
-                    <TextView
-                        android:id="@+id/textView_address"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textAlignment="textStart"
-                        android:textSize="14sp"
-                        android:paddingStart="4dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="50, Bay Tower"/>
-                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/imageButton_cart"

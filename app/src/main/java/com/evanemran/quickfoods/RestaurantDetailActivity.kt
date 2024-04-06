@@ -10,6 +10,7 @@ import com.evanemran.quickfoods.models.Restaurant
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_restaurant_detail.*
 
+import kotlinx.android.synthetic.main.home_grids.*
 class RestaurantDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +23,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
 
     private fun getCategory() {
         val categories: MutableList<String> = mutableListOf()
-        categories.add("Burger")
-        categories.add("Pizza")
-        categories.add("Set Menu")
-        categories.add("Pasta")
-        categories.add("Steak")
-        categories.add("Dessert")
-        categories.add("Drinks")
+        categories.add("Items")
 
         viewPager?.let { setupViewPager(it, categories) }
 //        tabLayout!!.setupWithViewPager(viewPager)

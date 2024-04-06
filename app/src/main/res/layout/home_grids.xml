@@ -14,28 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"/>
-        <LinearLayout
-            android:id="@+id/layout_recents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recent orders: "
-                android:layout_marginStart="8dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textAlignment="textStart"
-                android:padding="8dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_recents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
-        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_deals"
             android:layout_width="match_parent"
@@ -58,27 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_cuisine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cuisines: "
-                android:layout_marginStart="8dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textAlignment="textStart"
-                android:padding="8dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_cuisine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
-        </LinearLayout>
+
+
     </LinearLayout>
 </ScrollView>

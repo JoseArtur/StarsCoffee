@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         askPermission()
 
         setupServices()
-        setupRecents()
+      //  setupRecents()
         setupDeals()
-        setupCuisine()
+    //    setupCuisine()
         setupNavMenu()
 
         imageButton_cart.setOnClickListener {
@@ -87,7 +87,7 @@ private var apiService :CoffeeAPIService
             .build()
         apiService = retrofit.create(CoffeeAPIService::class.java)
     }
-    private fun setupRecents() {
+/*    private fun setupRecents() {
         apiService.getMenuItems().enqueue(object : Callback<List<Foods>> {
             override fun onResponse(call: Call<List<Foods>>, response: Response<List<Foods>>) {
                 if (response.isSuccessful) {
@@ -122,19 +122,13 @@ private var apiService :CoffeeAPIService
                 // Handle the case where the request failed
             }
         })
-    }
+    }*/
 
     private fun setupNavMenu() {
         val navMenus: MutableList<DrawerMenu> = mutableListOf()
         navMenus.add(DrawerMenu.FAVORITES)
         navMenus.add(DrawerMenu.ORDER_REORDER)
-        navMenus.add(DrawerMenu.PROFILE)
-        navMenus.add(DrawerMenu.ADDRESS)
-        navMenus.add(DrawerMenu.REWARDS)
         navMenus.add(DrawerMenu.VOUCHERS)
-        navMenus.add(DrawerMenu.HELP_CENTER)
-        navMenus.add(DrawerMenu.SETTINGS)
-        navMenus.add(DrawerMenu.TERMS)
         navMenus.add(DrawerMenu.LOGOUT)
 
         recycler_nav.setHasFixedSize(true)
@@ -143,7 +137,7 @@ private var apiService :CoffeeAPIService
         recycler_nav.adapter = drawerAdapter
     }
 
-    private fun setupCuisine() {
+/*    private fun setupCuisine() {
         val cuisines: MutableList<Cuisine> = mutableListOf()
         cuisines.add(Cuisine(0, R.drawable.cuisine, "Fast food"))
         cuisines.add(Cuisine(1, R.drawable.cuisine_dessert, "Dessert"))
@@ -161,7 +155,7 @@ private var apiService :CoffeeAPIService
         recycler_cuisine.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.HORIZONTAL)
         val cuisineAdapter = CuisineAdapter(this, cuisines, cuisineClickListener)
         recycler_cuisine.adapter = cuisineAdapter
-    }
+    }*/
 
     private fun setupDeals() {
         val deals: MutableList<Deals> = mutableListOf()
@@ -196,9 +190,8 @@ private var apiService :CoffeeAPIService
 
     private val servicesClickListener: ClickListener<Service> = object : ClickListener<Service>{
         override fun onClicked(data: Service) {
-            Toast.makeText(this@MainActivity, data.title, Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@MainActivity, RestaurantDetailActivity::class.java))
         }
-
     }
 
     private val dealsClickListener: ClickListener<Deals> = object : ClickListener<Deals>{
