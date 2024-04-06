@@ -16,7 +16,6 @@
         android:background="@color/accentColor"
         app:titleTextColor="@color/white"
         app:subtitleTextColor="@color/white"
-        app:subtitle="Coding Cafe - Mirpur"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 

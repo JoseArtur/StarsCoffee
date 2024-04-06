@@ -17,7 +17,6 @@ class RestaurantDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_restaurant_detail)
 
         getCategory()
-//        getFoodList()
 
     }
 
@@ -26,7 +25,6 @@ class RestaurantDetailActivity : AppCompatActivity() {
         categories.add("Items")
 
         viewPager?.let { setupViewPager(it, categories) }
-//        tabLayout!!.setupWithViewPager(viewPager)
     }
 
     private fun setupViewPager(viewPager: ViewPager, list: List<String>) {

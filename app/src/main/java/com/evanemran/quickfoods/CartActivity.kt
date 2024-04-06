@@ -6,13 +6,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.evanemran.quickfoods.adapters.CartListAdapter
-import com.evanemran.quickfoods.adapters.DealsAdapter
 import com.evanemran.quickfoods.dialogs.CouponDialog
-import com.evanemran.quickfoods.dialogs.PaymentOptionDialog
 import com.evanemran.quickfoods.listeners.ClickListener
 import com.evanemran.quickfoods.models.Coupon
-import com.evanemran.quickfoods.models.Deals
-import com.evanemran.quickfoods.models.DrawerMenu
 import com.evanemran.quickfoods.models.Foods
 import kotlinx.android.synthetic.main.activity_cart.*
 import kotlinx.android.synthetic.main.home_grids.*

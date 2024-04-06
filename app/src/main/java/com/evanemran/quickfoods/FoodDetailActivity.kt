@@ -40,7 +40,7 @@ class FoodDetailActivity : AppCompatActivity() {
     private val addOnClickListener: ClickListener<AddOns> = object :
         ClickListener<AddOns> {
         override fun onClicked(data: AddOns) {
-            startActivity(Intent(this@FoodDetailActivity, RestaurantsActivity::class.java))
+            startActivity(Intent(this@FoodDetailActivity, RestaurantDetailActivity::class.java))
         }
 
     }
