@@ -11,6 +11,7 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+//import com.evanemran.quickfoods.databinding.ActivityCheckoutBinding
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.evanemran.quickfoods.listeners.ClickListener
 import com.evanemran.quickfoods.models.Address
 import com.evanemran.quickfoods.models.Foods
 import com.evanemran.quickfoods.models.PaymentChannels
+import com.example.starscoffee.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
