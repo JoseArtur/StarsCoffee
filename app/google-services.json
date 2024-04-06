@@ -1,36 +1,27 @@
 {
   "project_info": {
-    "project_number": "259106539388",
-    "project_id": "quick-foods-e6336",
-    "storage_bucket": "quick-foods-e6336.appspot.com"
+    "project_number": "26095675993",
+    "firebase_url": "https://stars-coffee-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "stars-coffee",
+    "storage_bucket": "stars-coffee.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:259106539388:android:a2bb6e61799517885206f9",
+        "mobilesdk_app_id": "1:26095675993:android:764670fb2cbfb3e96e9f48",
         "android_client_info": {
           "package_name": "com.evanemran.quickfoods"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "259106539388-739rg8ctjn7ill8j9qoo8s0nuq6kvntc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDdCs_Bl6qc922sHniCmshtmt-S5X9yYOg"
+          "current_key": "AIzaSyBCH5NqfuMuwQ8TEyGhawvkAMLe38Dr1vg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "259106539388-739rg8ctjn7ill8j9qoo8s0nuq6kvntc.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
