@@ -1,0 +1,11 @@
+[
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "weight": 3
+      }
+    ]
+  }
+]

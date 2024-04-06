@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "259106539388",
+    "project_id": "quick-foods-e6336",
+    "storage_bucket": "quick-foods-e6336.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259106539388:android:a2bb6e61799517885206f9",
+        "android_client_info": {
+          "package_name": "com.evanemran.quickfoods"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259106539388-739rg8ctjn7ill8j9qoo8s0nuq6kvntc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdCs_Bl6qc922sHniCmshtmt-S5X9yYOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259106539388-739rg8ctjn7ill8j9qoo8s0nuq6kvntc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
