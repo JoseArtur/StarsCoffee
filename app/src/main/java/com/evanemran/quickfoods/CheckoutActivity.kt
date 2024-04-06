@@ -51,7 +51,8 @@ class CheckoutActivity : AppCompatActivity(), OnMapReadyCallback {
         selectedChannel = PaymentChannels(0, "Cash", R.drawable.ic_money)
 
         textView_payChannel.setOnClickListener {
-            val postDialog = PaymentOptionDialog(getPayChannelList(), selectedChannel ,paymentClickListener)
+            val postDialog = PaymentOptionDialog(getPayChannelList(),
+                selectedChannel!!,paymentClickListener)
             postDialog.show(supportFragmentManager, "payment")
         }
 

@@ -11,7 +11,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.quickfoods.R
 import com.evanemran.quickfoods.listeners.ClickListener
-import com.evanemran.quickfoods.models.Cuisine
 import com.evanemran.quickfoods.models.Deals
 import com.evanemran.quickfoods.models.Foods
 import com.evanemran.quickfoods.models.Service
