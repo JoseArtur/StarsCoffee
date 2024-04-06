@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val userPoints = "10"
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.open_nav_drawer, R.string.close_nav_drawer
         )
@@ -54,7 +55,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //    setupCuisine()
         setupNavMenu()
 
+        setupPointsMenu(userPoints)
+
         imageButton_cart.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CartActivity::class.java))
+        }
+        pointsButton.setOnClickListener {
             startActivity(Intent(this@MainActivity, CartActivity::class.java))
         }
 
@@ -135,6 +141,10 @@ private var apiService :CoffeeAPIService
         recycler_nav.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val drawerAdapter = DrawerAdapter(this, navMenus, drawerClickListener)
         recycler_nav.adapter = drawerAdapter
+    }
+
+    private fun setupPointsMenu(points: String) {
+        pointsButton.run { pointsButton.setText(points) }
     }
 
 /*    private fun setupCuisine() {
