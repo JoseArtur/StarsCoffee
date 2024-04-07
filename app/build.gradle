@@ -1,16 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+
 }
 
 android {
     namespace "com.example.starscoffee"
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.evanemran.quickfoods"
+        applicationId "com.example.starscoffee"
         minSdk 24
         targetSdk 33
         versionCode 1
