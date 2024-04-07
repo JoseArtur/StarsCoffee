@@ -21,7 +21,7 @@ private val fragTitle = ArrayList<String>()
         fragTitle.add(title)
         }
 
-        override fun getPageTitle(position: Int): CharSequence? {
+        override fun getPageTitle(position: Int): CharSequence {
         return fragTitle[position]
         }
         }

@@ -16,7 +16,7 @@ class PaymentOptionDialog(private val pList: List<PaymentChannels>, private var 
         private var _binding: DialogPaymentchannelBinding? = null
         private val binding get() = _binding!!
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
                 _binding = DialogPaymentchannelBinding.inflate(inflater, container, false)
                 return binding.root
         }

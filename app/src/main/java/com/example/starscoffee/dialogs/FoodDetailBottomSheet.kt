@@ -15,7 +15,7 @@ class FoodDetailBottomSheet : BottomSheetDialogFragment() {
         private var _binding: BottomsheetFoodDetailBinding? = null
         private val binding get() = _binding!!
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
                 _binding = BottomsheetFoodDetailBinding.inflate(inflater, container, false)
 
                 binding.buttonAddToCart.setOnClickListener {

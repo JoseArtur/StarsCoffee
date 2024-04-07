@@ -16,7 +16,7 @@ class CouponDialog(private val couponList: List<Coupon>, private val listener: C
     private var _binding: DialogCouponsBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DialogCouponsBinding.inflate(inflater, container, false)
         return binding.root
     }

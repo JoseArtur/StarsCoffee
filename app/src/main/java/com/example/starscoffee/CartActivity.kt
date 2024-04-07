@@ -34,9 +34,36 @@ class CartActivity : AppCompatActivity() {
 
     private fun getCouponList(): MutableList<Coupon> {
         val couponList: MutableList<Coupon> = mutableListOf()
-        couponList.add(Coupon(0, "hwrghg", "120 discount on first order!", 120, "15 Aug, 2022", true))
-        couponList.add(Coupon(0, "DINNER60", "60 Taka off on order from 7pm to 11 pm!", 60, "21 Aug, 2022", true))
-        couponList.add(Coupon(0, "WELCOME10", "10% discount on old account holders!", 200, "18 Aug, 2022", false))
+        couponList.add(
+            Coupon(
+                0,
+                "hwrghg",
+                "120 discount on first order!",
+                120,
+                "15 Aug, 2022",
+                true
+            )
+        )
+        couponList.add(
+            Coupon(
+                0,
+                "DINNER60",
+                "60 Taka off on order from 7pm to 11 pm!",
+                60,
+                "21 Aug, 2022",
+                true
+            )
+        )
+        couponList.add(
+            Coupon(
+                0,
+                "WELCOME10",
+                "10% discount on old account holders!",
+                200,
+                "18 Aug, 2022",
+                false
+            )
+        )
 
         return couponList
     }
@@ -46,7 +73,8 @@ class CartActivity : AppCompatActivity() {
 
         binding.recyclerCartItem.setHasFixedSize(true)
         binding.recyclerCartItem.isNestedScrollingEnabled = false
-        binding.recyclerCartItem.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerCartItem.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val cartListAdapter = CartListAdapter(this, foodList, cartClickListener)
         binding.recyclerCartItem.adapter = cartListAdapter
     }

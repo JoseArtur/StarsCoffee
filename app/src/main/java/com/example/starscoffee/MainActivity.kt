@@ -1,4 +1,5 @@
 package com.example.starscoffee
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,21 +24,23 @@ import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var homeGridsBinding: HomeGridsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        homeGridsBinding = HomeGridsBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         val toggle = ActionBarDrawerToggle(
-            this, binding.drawerLayout, binding.toolbar, R.string.open_nav_drawer, R.string.close_nav_drawer
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.open_nav_drawer,
+            R.string.close_nav_drawer
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -54,8 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-
-
     private fun setupNavMenu() {
         val navMenus: MutableList<DrawerMenu> = mutableListOf()
         navMenus.add(DrawerMenu.FAVORITES)
@@ -65,7 +66,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         binding.recyclerNav.setHasFixedSize(true)
-        binding.recyclerNav.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerNav.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val drawerAdapter = DrawerAdapter(this, navMenus, drawerClickListener)
         binding.recyclerNav.adapter = drawerAdapter
 
@@ -82,47 +84,50 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         deals.add(Deals(5, R.drawable.deals))
         deals.add(Deals(6, R.drawable.deals))
 
-        homeGridsBinding.recyclerDeals.setHasFixedSize(true)
-        homeGridsBinding.recyclerDeals.isNestedScrollingEnabled = false
-        homeGridsBinding.recyclerDeals.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerDeals.setHasFixedSize(true)
+        binding.recyclerDeals.isNestedScrollingEnabled = false
+        binding.recyclerDeals.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val dealsAdapter = DealsAdapter(this, deals, dealsClickListener)
-        homeGridsBinding.recyclerDeals.adapter = dealsAdapter
+        binding.recyclerDeals.adapter = dealsAdapter
     }
 
     private fun setupServices() {
         val services: MutableList<Service> = mutableListOf()
         services.add(Service.ITEMS)
-        homeGridsBinding.recyclerService.setHasFixedSize(true)
-        homeGridsBinding.recyclerService.isNestedScrollingEnabled = false
-        homeGridsBinding.recyclerService.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        binding.recyclerService.setHasFixedSize(true)
+        binding.recyclerService.isNestedScrollingEnabled = false
+        binding.recyclerService.layoutManager =
+            StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         val serviceAdapter = ServiceAdapter(this, services, servicesClickListener)
-        homeGridsBinding.recyclerService.adapter = serviceAdapter
+        binding.recyclerService.adapter = serviceAdapter
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
     }
 
-    private val servicesClickListener: ClickListener<Service> = object : ClickListener<Service>{
+    private val servicesClickListener: ClickListener<Service> = object : ClickListener<Service> {
         override fun onClicked(data: Service) {
             startActivity(Intent(this@MainActivity, RestaurantDetailActivity::class.java))
         }
     }
 
-    private val dealsClickListener: ClickListener<Deals> = object : ClickListener<Deals>{
+    private val dealsClickListener: ClickListener<Deals> = object : ClickListener<Deals> {
         override fun onClicked(data: Deals) {
             Toast.makeText(this@MainActivity, "Clicked!", Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    private val drawerClickListener: ClickListener<DrawerMenu> = object : ClickListener<DrawerMenu>{
-        override fun onClicked(data: DrawerMenu) {
-            Toast.makeText(this@MainActivity, "Clicked " + data.title, Toast.LENGTH_SHORT).show()
+    private val drawerClickListener: ClickListener<DrawerMenu> =
+        object : ClickListener<DrawerMenu> {
+            override fun onClicked(data: DrawerMenu) {
+                Toast.makeText(this@MainActivity, "Clicked " + data.title, Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         }
 
-    }
 
-
-
-    }
+}
