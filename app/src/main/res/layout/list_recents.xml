@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/food_container"
     android:layout_width="260dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
-    android:id="@+id/food_container"
-    app:cardElevation="8dp"
-    android:layout_margin="8dp">
+    app:cardElevation="8dp">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
-            app:cardElevation="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:cardElevation="8dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="140dp">
@@ -28,35 +31,39 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/restaurants" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/accentColor"
                     android:padding="4dp"
                     android:text="VOUCHER: EVAN100"
-                    android:layout_alignParentTop="true"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:background="@color/accentColor"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_margin="8dp"
-                    app:cardElevation="8dp"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="16dp"
-                    app:cardBackgroundColor="@color/white">
+                    app:cardElevation="8dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
                         android:text=" 30 min "
+                        android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:textStyle="normal"
-                        android:textColor="@color/black" />
+                        android:textStyle="normal" />
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -67,53 +74,55 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_toStartOf="@+id/textView_rating"
+                android:maxLines="1"
                 android:padding="8dp"
                 android:text="Restaurant"
-                android:maxLines="1"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textView_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:textStyle="bold"
                 android:drawableStart="@drawable/ic_star"
                 android:drawablePadding="4dp"
                 android:padding="8dp"
-                android:text="4.2(100)" />
+                android:text="4.2(100)"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/textView_restaurantCuisine"
-                android:layout_below="@+id/textView_foodName"
-                android:text=""
-                android:textColor="@color/dark_grey"
-                android:paddingStart="8dp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:textSize="14sp"
-                android:textAlignment="textStart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_foodName"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text=""
+                android:textAlignment="textStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView_restaurantDeliveryPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/textView_restaurantCuisine"
-                android:text="Not Defined"
-                android:textColor="@color/dark_grey"
-                android:paddingStart="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/ic_delivery"
                 android:drawablePadding="8dp"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp"
+                android:paddingStart="8dp"
+                android:text="Not Defined"
                 android:textAlignment="textStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 

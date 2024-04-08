@@ -14,5 +14,6 @@ data class Foods(
     @SerializedName("image_url")
     var image_url: String,
     var isFavorite: Boolean = false,
-    var isAvailable: Boolean = true
-)
+    var isAvailable: Boolean = true,
+    var quantity: Int = 1
+) : Serializable

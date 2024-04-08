@@ -4,11 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.starscoffee.adapters.FoodsViewPagerAdapter
-import com.example.starscoffee.fragments.FoodListFragment
-import com.example.starscoffee.models.Foods
-import com.example.starscoffee.models.Restaurant
-import com.google.android.material.tabs.TabLayout
 import com.example.starscoffee.databinding.ActivityRestaurantDetailBinding
+import com.example.starscoffee.fragments.FoodListFragment
 
 class RestaurantDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRestaurantDetailBinding
@@ -31,7 +28,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager, list: List<String>) {
         val viewPagerAdapter = FoodsViewPagerAdapter(supportFragmentManager)
 
-        for (item in list){
+        for (item in list) {
             val fragment = FoodListFragment()
             viewPagerAdapter.addFragment(fragment, item)
         }

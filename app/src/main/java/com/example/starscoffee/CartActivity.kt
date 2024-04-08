@@ -1,19 +1,24 @@
 package com.example.starscoffee
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starscoffee.adapters.CartListAdapter
+import com.example.starscoffee.databinding.ActivityCartBinding
 import com.example.starscoffee.dialogs.CouponDialog
 import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Coupon
 import com.example.starscoffee.models.Foods
-import com.example.starscoffee.databinding.ActivityCartBinding
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
+
+    companion object {
+        val cartList: MutableList<Foods> = mutableListOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +28,13 @@ class CartActivity : AppCompatActivity() {
         setupCartData()
 
         binding.buttonReviewAddress.setOnClickListener {
-            startActivity(Intent(this, CheckoutActivity::class.java))
+            startActivity(
+                Intent(this, CheckoutActivity::class.java).putExtra(
+                    "cartList",
+                    ArrayList(cartList)
+                ).putExtra("total", binding.textViewTotal.text.toString())
+                    .putExtra("subTotal", binding.textViewSubTotal.text.toString())
+            )
         }
 
         binding.textViewApplyVoucher.setOnClickListener {
@@ -39,7 +50,7 @@ class CartActivity : AppCompatActivity() {
                 0,
                 "hwrghg",
                 "120 discount on first order!",
-                120,
+                1,
                 "15 Aug, 2022",
                 true
             )
@@ -49,7 +60,7 @@ class CartActivity : AppCompatActivity() {
                 0,
                 "DINNER60",
                 "60 Taka off on order from 7pm to 11 pm!",
-                60,
+                2,
                 "21 Aug, 2022",
                 true
             )
@@ -59,7 +70,7 @@ class CartActivity : AppCompatActivity() {
                 0,
                 "WELCOME10",
                 "10% discount on old account holders!",
-                200,
+                1,
                 "18 Aug, 2022",
                 false
             )
@@ -69,14 +80,29 @@ class CartActivity : AppCompatActivity() {
     }
 
     private fun setupCartData() {
-        val foodList: MutableList<Foods> = mutableListOf()
-
         binding.recyclerCartItem.setHasFixedSize(true)
         binding.recyclerCartItem.isNestedScrollingEnabled = false
         binding.recyclerCartItem.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val cartListAdapter = CartListAdapter(this, foodList, cartClickListener)
+        val cartListAdapter = CartListAdapter(this, CartActivity.cartList, cartClickListener)
         binding.recyclerCartItem.adapter = cartListAdapter
+        calculateSubTotal()
+        calcutateTotal()
+
+    }
+
+    // Function to calculate the total
+    fun calcutateTotal() {
+        val total = cartList.sumOf { it.price * it.quantity }
+        val textViewTotal = findViewById<TextView>(R.id.textView_total)
+        textViewTotal.text = getString(R.string.total_price, total)
+    }
+
+    // Function to calculate the subtotal
+    fun calculateSubTotal() {
+        val subTotal = cartList.sumOf { it.price * it.quantity }
+        val textViewSubTotal = findViewById<TextView>(R.id.textView_subTotal)
+        textViewSubTotal.text = getString(R.string.subtotal_price, subTotal)
     }
 
     private val cartClickListener: ClickListener<Foods> = object :
@@ -90,7 +116,11 @@ class CartActivity : AppCompatActivity() {
         ClickListener<Coupon> {
         override fun onClicked(data: Coupon) {
             Toast.makeText(this@CartActivity, data.couponCode, Toast.LENGTH_SHORT).show()
-        }
 
+            // Calculate the new subtotal after applying the coupon
+            val total = cartList.sumOf { it.price * it.quantity } - data.couponAmt
+            val textViewTotal = findViewById<TextView>(R.id.textView_total)
+            textViewTotal.text = getString(R.string.total_price, total)
+        }
     }
 }

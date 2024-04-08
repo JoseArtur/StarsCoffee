@@ -4,17 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.starscoffee.databinding.ListServicesBinding
 import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Service
-import com.example.starscoffee.databinding.ListServicesBinding
 
-class ServiceAdapter (val context: Context, val list: List<Service>, val listener: ClickListener<Service>)
-    : RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>(){
+class ServiceAdapter(
+    val context: Context,
+    val list: List<Service>,
+    val listener: ClickListener<Service>
+) : RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
         val layoutInflater = LayoutInflater.from(context)
@@ -43,5 +42,6 @@ class ServiceAdapter (val context: Context, val list: List<Service>, val listene
         return list.size
     }
 
-    inner class ServiceViewHolder(val binding: ListServicesBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ServiceViewHolder(val binding: ListServicesBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

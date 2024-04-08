@@ -1,6 +1,13 @@
 package com.example.starscoffee.models
 
-class Coupon(id: Int, code: String, title: String, amount: Int, validity: String, isValid: Boolean) {
+class Coupon(
+    id: Int,
+    code: String,
+    title: String,
+    amount: Int,
+    validity: String,
+    isValid: Boolean
+) {
 
     var couponId: Int = id
     var couponCode: String = code

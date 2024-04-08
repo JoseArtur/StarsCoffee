@@ -1,25 +1,23 @@
 package com.example.starscoffee.adapters
 
+
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
+import com.example.starscoffee.CartActivity
+import com.example.starscoffee.R
+import com.example.starscoffee.databinding.ListCartBinding
 import com.example.starscoffee.listeners.ClickListener
-import com.example.starscoffee.models.Deals
 import com.example.starscoffee.models.Foods
-import com.example.starscoffee.models.Service
 import com.squareup.picasso.Picasso
 
-
-import com.example.starscoffee.databinding.ListCartBinding
-
-class CartListAdapter (val context: Context, val list: List<Foods>, val listener: ClickListener<Foods>)
-    : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>(){
+class CartListAdapter(
+    val context: Context,
+    val list: MutableList<Foods>,
+    val listener: ClickListener<Foods>
+) : RecyclerView.Adapter<CartListAdapter.CartListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,10 +30,22 @@ class CartListAdapter (val context: Context, val list: List<Foods>, val listener
         val imageUrl = item.image_url
         Picasso.get().load(imageUrl).into(holder.binding.imageViewFoods)
         holder.binding.textViewFoodName.text = item.foodName
-        holder.binding.textViewFoodPrice.text = "${item.price} €"
+        holder.binding.textViewFoodQuantity.text = "Qty: ${item.quantity}"
+        holder.binding.textViewFoodPrice.text = "${item.price * item.quantity} €"
 
         holder.binding.cartListContainer.setOnClickListener {
             listener.onClicked(item)
+        }
+        // Set an OnClickListener for the remove_item button
+        holder.binding.removeItem.setOnClickListener {
+            list.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
+            notifyItemRangeChanged(holder.adapterPosition, list.size)
+
+            // Calculate the subtotal after an item is removed
+            if (context is CartActivity) {
+                context.calculateSubTotal()
+            }
         }
     }
 
@@ -43,5 +53,8 @@ class CartListAdapter (val context: Context, val list: List<Foods>, val listener
         return list.size
     }
 
-    inner class CartListViewHolder(val binding: ListCartBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CartListViewHolder(val binding: ListCartBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val removeItem: ImageButton = binding.root.findViewById(R.id.remove_item)
+    }
 }

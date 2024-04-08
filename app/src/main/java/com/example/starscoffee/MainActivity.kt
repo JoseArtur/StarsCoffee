@@ -1,28 +1,22 @@
 package com.example.starscoffee
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.starscoffee.adapters.*
-import com.example.starscoffee.listeners.ClickListener
-import com.example.starscoffee.models.*
-import com.example.starscoffee.R
+import com.example.starscoffee.adapters.DealsAdapter
+import com.example.starscoffee.adapters.DrawerAdapter
+import com.example.starscoffee.adapters.ServiceAdapter
 import com.example.starscoffee.databinding.ActivityMainBinding
-import com.example.starscoffee.databinding.HomeGridsBinding
-
+import com.example.starscoffee.listeners.ClickListener
+import com.example.starscoffee.models.Deals
+import com.example.starscoffee.models.DrawerMenu
+import com.example.starscoffee.models.Service
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.GsonBuilder
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -123,11 +117,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val drawerClickListener: ClickListener<DrawerMenu> =
         object : ClickListener<DrawerMenu> {
             override fun onClicked(data: DrawerMenu) {
-                Toast.makeText(this@MainActivity, "Clicked " + data.title, Toast.LENGTH_SHORT)
-                    .show()
+                when (data) {
+                    DrawerMenu.ORDER_REORDER -> {
+                        // Start OrderHistoryActivity when ORDER_REORDER is clicked
+                        val intent = Intent(this@MainActivity, OrderHistoryActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Clicked " + data.title,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
             }
-
         }
-
 
 }

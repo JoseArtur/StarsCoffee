@@ -1,23 +1,19 @@
 package com.example.starscoffee.adapters
 
+
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.starscoffee.databinding.ListCouponBinding
 import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Coupon
-import com.example.starscoffee.models.PaymentChannels
 
-
-import com.example.starscoffee.databinding.ListCouponBinding
-
-class CouponsAdapter (val context: Context, val list: List<Coupon>, val listener: ClickListener<Coupon>)
-    : RecyclerView.Adapter<CouponsAdapter.CouponsViewHolder>(){
+class CouponsAdapter(
+    val context: Context,
+    val list: List<Coupon>,
+    val listener: ClickListener<Coupon>
+) : RecyclerView.Adapter<CouponsAdapter.CouponsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CouponsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -42,5 +38,6 @@ class CouponsAdapter (val context: Context, val list: List<Coupon>, val listener
         return list.size
     }
 
-    inner class CouponsViewHolder(val binding: ListCouponBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CouponsViewHolder(val binding: ListCouponBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

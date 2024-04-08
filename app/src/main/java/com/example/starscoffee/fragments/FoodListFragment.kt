@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starscoffee.CoffeeAPIService
 import com.example.starscoffee.FoodDetailActivity
 import com.example.starscoffee.adapters.FoodListAdapter
-import com.example.starscoffee.dialogs.FoodDetailBottomSheet
+import com.example.starscoffee.databinding.FragmentFoodBinding
 import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Foods
-import com.example.starscoffee.databinding.FragmentFoodBinding
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,17 +74,13 @@ class FoodListFragment : Fragment() {
 
     private val foodClickListener = object : ClickListener<Foods> {
         override fun onClicked(data: Foods) {
-            if (data.foodName == "Set meal 1") {
-                val bottomSheet = FoodDetailBottomSheet()
-                bottomSheet.show(childFragmentManager, "BottomSheet")
-            } else {
-                startActivity(
-                    Intent(context, FoodDetailActivity::class.java).putExtra(
-                        "food",
-                        data.toString()
-                    )
+            startActivity(
+                Intent(context, FoodDetailActivity::class.java).putExtra(
+                    "food",
+                    data
                 )
-            }
+            )
+
         }
     }
 

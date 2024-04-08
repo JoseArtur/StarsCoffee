@@ -4,128 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".CartActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:title="Cart"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@color/accentColor"
-        app:titleTextColor="@color/white"
         app:subtitleTextColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        app:title="Cart"
+        app:titleTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/paymentButton_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/paymentButton_container"
+        android:layout_below="@+id/toolbar">
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="8dp">
-            </androidx.cardview.widget.CardView>
+                app:cardElevation="8dp"></androidx.cardview.widget.CardView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_cartItem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:text="Subtotal"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textAlignment="textStart"
-                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Subtotal"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/textView_subTotal"
-                    android:text="Not Defined"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textAlignment="textEnd"
-                    android:padding="8dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:text="Not Defined"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/textView_applyVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_voucher"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/accentColor"
+                android:padding="8dp"
                 android:text="Apply a voucher"
                 android:textAlignment="textStart"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:textColor="@color/accentColor"
-                android:padding="8dp"
-                android:drawableStart="@drawable/ic_voucher"
-                android:drawableTint="@color/accentColor"
-                android:drawablePadding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/paymentButton_container"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="Total"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textAlignment="textStart"
-                android:padding="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="Total"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView_total"
-                android:text="Not Defined"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="textEnd"
-                android:padding="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="Not Defined"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <Button
             android:id="@+id/button_reviewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@drawable/rounded_button"
             android:text="Review payment and address"
             android:textAllCaps="true"
-            android:background="@drawable/rounded_button"
-            android:textSize="14sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-   >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Include "neverForLocation" only if you can strongly assert that
-     your app never derives physical location from Wi-Fi APIs. -->
-    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+    <!--
+ Include "neverForLocation" only if you can strongly assert that
+     your app never derives physical location from Wi-Fi APIs.
+    -->
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
         android:usesPermissionFlags="neverForLocation" />
-
-    <!-- Not needed if you can strongly assert that your app never derives
+    <!--
+ Not needed if you can strongly assert that your app never derives
          physical location from Wi-Fi APIs and doesn't need location
-         access for any other purpose. -->
+         access for any other purpose.
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +38,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StarsCoffee"
         tools:targetApi="31">
-
+        <activity
+            android:name=".OrderHistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".OrderStatusActivity"
             android:exported="false" />
@@ -49,7 +56,6 @@
         <activity
             android:name=".RestaurantDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".SignupActivity"
             android:exported="true">
