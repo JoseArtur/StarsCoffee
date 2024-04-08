@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebMvcTest(value = CoffeeShopController.class)
 class CoffeeShopControllerTest extends BaseControllerTest {
 
-    private static final long CUSTOMER_ID = 1;
+    private static final long CUSTOMER_ID = 4;
     private OrderListResponse orderListResponse;
     private OrderRequest orderRequest;
     private CoffeeShopDto coffeeShopDto;
@@ -84,7 +84,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void getAllCustomers() {
         when(coffeeShopService.getAllCustomers()).thenReturn(orderListResponse);
         try {
-            mockMvc.perform(get("/customers")
+            mockMvc.perform(get("/get-all-customers")
                             .with(httpBasic("user", "password"))
                             .with(csrf()))
                     .andDo(print())
@@ -121,7 +121,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void updateCustomer() {
         when(coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest)).thenReturn(coffeeShopDto);
         try {
-            mockMvc.perform(put("/customer/{id}", CUSTOMER_ID)
+            mockMvc.perform(put("/update-customer/{id}", CUSTOMER_ID)
                             .with(httpBasic("admin", "admin"))
                             .with(csrf())
                             .contentType(contentType)
@@ -141,7 +141,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void updateCustomer_notFound() {
         when(coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest)).thenReturn(null);
         try {
-            mockMvc.perform(put("/customer/{id}", CUSTOMER_ID)
+            mockMvc.perform(put("/update-customer/{id}", CUSTOMER_ID)
                             .with(httpBasic("admin", "admin"))
                             .with(csrf())
                             .contentType(contentType)
@@ -161,7 +161,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void deleteCustomer() {
         when(coffeeShopService.deleteCustomer(CUSTOMER_ID)).thenReturn(orderDeleteResponse);
         try {
-            mockMvc.perform(delete("/customer/{id}", CUSTOMER_ID)
+            mockMvc.perform(delete("/delete-customer/{id}", CUSTOMER_ID)
                             .with(httpBasic("admin", "admin"))
                             .with(csrf()))
                     .andDo(print())
@@ -178,7 +178,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void deleteCustomer_noContent() {
         when(coffeeShopService.deleteCustomer(CUSTOMER_ID)).thenReturn(OrderDeleteResponse.builder().deletedCustomerCount(0L).build());
         try {
-            mockMvc.perform(delete("/customer/{id}", CUSTOMER_ID)
+            mockMvc.perform(delete("/delete-customer/{id}", CUSTOMER_ID)
                             .with(httpBasic("admin", "admin"))
                             .with(csrf()))
                     .andDo(print())
@@ -195,7 +195,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void deleteAllCustomers() {
         when(coffeeShopService.deleteAllCustomers()).thenReturn(orderDeleteResponse);
         try {
-            mockMvc.perform(delete("/customers")
+            mockMvc.perform(delete("/delete-all-customers")
                             .with(httpBasic("admin", "admin"))
                             .with(csrf()))
                     .andDo(print())
@@ -212,7 +212,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void deleteAllCustomers_noContent() {
         when(coffeeShopService.deleteAllCustomers()).thenReturn(OrderDeleteResponse.builder().deletedCustomerCount(0L).build());
         try {
-            mockMvc.perform(delete("/customers")
+            mockMvc.perform(delete("/delete-all-customers")
                             .with(httpBasic("admin", "admin"))
                             .with(csrf()))
                     .andDo(print())
