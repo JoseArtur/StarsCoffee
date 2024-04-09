@@ -10,6 +10,7 @@ import org.feup.coffeeshop.model.response.OrderListResponse;
 import org.feup.coffeeshop.repository.AvailableItemsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
 import org.feup.coffeeshop.repository.LoginRepository;
+import org.feup.coffeeshop.repository.PurchaseRepository;
 import org.feup.coffeeshop.service.impl.CoffeeShopServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,9 @@ class CoffeeShopServiceTest extends BaseServiceTest {
     @MockBean
     private AvailableItemsRepository availableItemsRepository;
 
+    @MockBean
+    private PurchaseRepository purchaseRepository;
+
     private CoffeeShopService coffeeShopService;
 
 
@@ -54,7 +58,7 @@ class CoffeeShopServiceTest extends BaseServiceTest {
         orderRequestEntity.setId(CUSTOMER_ID);
         userDto = starsCoffeeConverter.toDto(orderRequestEntity);
         orderListResponse = OrderListResponse.builder().customers(Collections.singletonList(userDto)).build();
-        coffeeShopService = new CoffeeShopServiceImpl(repository, starsCoffeeConverter, loginRepository, availableItemsRepository);
+        coffeeShopService = new CoffeeShopServiceImpl(repository, starsCoffeeConverter, loginRepository, availableItemsRepository, purchaseRepository);
     }
 
     @Test
