@@ -1,13 +1,15 @@
 package org.feup.coffeeshop.service;
 
 import org.feup.coffeeshop.base.BaseServiceTest;
-import org.feup.coffeeshop.model.converter.CoffeeShopConverter;
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.converter.StarsCoffeeConverter;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
+import org.feup.coffeeshop.repository.AvailableItemsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
+import org.feup.coffeeshop.repository.LoginRepository;
 import org.feup.coffeeshop.service.impl.CoffeeShopServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,23 +32,29 @@ class CoffeeShopServiceTest extends BaseServiceTest {
     private OrderListResponse orderListResponse;
     private OrderRequest orderRequest;
     private OrderRequestEntity orderRequestEntity;
-    private CoffeeShopDto coffeeShopDto;
+    private UserDto userDto;
 
     @MockBean
     private CoffeeRepository repository;
+
+    @MockBean
+    private LoginRepository loginRepository;
+
+    @MockBean
+    private AvailableItemsRepository availableItemsRepository;
 
     private CoffeeShopService coffeeShopService;
 
 
     @BeforeEach
     void setUp() {
-        final CoffeeShopConverter coffeeShopConverter = new CoffeeShopConverter();
+        final StarsCoffeeConverter starsCoffeeConverter = new StarsCoffeeConverter();
         orderRequest = generateCustomerRequest();
-        orderRequestEntity = coffeeShopConverter.toEntity(orderRequest);
+        orderRequestEntity = starsCoffeeConverter.toEntity(orderRequest);
         orderRequestEntity.setId(CUSTOMER_ID);
-        coffeeShopDto = coffeeShopConverter.toDto(orderRequestEntity);
-        orderListResponse = OrderListResponse.builder().customers(Collections.singletonList(coffeeShopDto)).build();
-        coffeeShopService = new CoffeeShopServiceImpl(repository, coffeeShopConverter);
+        userDto = starsCoffeeConverter.toDto(orderRequestEntity);
+        orderListResponse = OrderListResponse.builder().customers(Collections.singletonList(userDto)).build();
+        coffeeShopService = new CoffeeShopServiceImpl(repository, starsCoffeeConverter, loginRepository, availableItemsRepository);
     }
 
     @Test
@@ -73,22 +81,22 @@ class CoffeeShopServiceTest extends BaseServiceTest {
     @Test
     void createCustomer_success() {
         when(repository.save(any())).thenReturn(orderRequestEntity);
-        final CoffeeShopDto response = coffeeShopService.createCustomer(orderRequest);
-        assertEquals(coffeeShopDto, response);
+        final UserDto response = coffeeShopService.createCustomer(orderRequest);
+        assertEquals(userDto, response);
     }
 
     @Test
     void updateCustomer_success() {
         when(repository.findById(CUSTOMER_ID)).thenReturn(Optional.of(orderRequestEntity));
         when(repository.save(any())).thenReturn(orderRequestEntity);
-        final CoffeeShopDto response = coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest);
-        assertEquals(coffeeShopDto, response);
+        final UserDto response = coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest);
+        assertEquals(userDto, response);
     }
 
     @Test
     void updateCustomer_notFound() {
         when(repository.findById(CUSTOMER_ID)).thenReturn(Optional.empty());
-        final CoffeeShopDto response = coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest);
+        final UserDto response = coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest);
         assertNull(response);
     }
 

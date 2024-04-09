@@ -1,6 +1,7 @@
 package org.feup.coffeeshop.model.entity;
 
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 @Data
 @Entity
@@ -22,17 +21,23 @@ import org.hibernate.annotations.Where;
 @Setter
 @ToString
 @AllArgsConstructor
-@Table(name = "CUSTOMER")
-public class LoginRequestEntity {
+@Table(name = "VOUCHER")
+public class VoucherRequestEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column
-    private String email;
+    private String userId;
 
     @Column
-    private String password;
+    private String voucherCode;
+
+    @Column
+    private Date expiryDate;
+
+    @Column
+    private String pointsRequired;
 
 }

@@ -1,23 +1,31 @@
 package org.feup.coffeeshop.service;
 
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.dto.PurchaseDto;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
+import org.feup.coffeeshop.model.request.PurchaseRequest;
+import org.feup.coffeeshop.model.response.AvailableItemsListResponse;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
+import org.feup.coffeeshop.model.response.PurchaseListResponse;
 
 public interface CoffeeShopService {
     OrderListResponse getCustomer(Long id);
 
     OrderListResponse getAllCustomers();
 
-    CoffeeShopDto createCustomer(OrderRequest request);
+    UserDto createCustomer(OrderRequest request);
 
-    CoffeeShopDto login(OrderRequest request);
+    UserDto login(OrderRequest request);
 
-    CoffeeShopDto updateCustomer(Long id, OrderRequest request);
+    UserDto updateCustomer(Long id, OrderRequest request);
 
     OrderDeleteResponse deleteCustomer(Long id);
 
     OrderDeleteResponse deleteAllCustomers();
+
+    AvailableItemsListResponse getAvailableItems();
+
+    PurchaseDto createPurchase(PurchaseRequest request);
 
 }

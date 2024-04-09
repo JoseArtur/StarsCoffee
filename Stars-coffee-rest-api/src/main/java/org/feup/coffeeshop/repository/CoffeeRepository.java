@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CoffeeRepository extends JpaRepository<OrderRequestEntity, Long> {
 
-    //OrderRequestEntity findByEmail(String email, String password);
 }

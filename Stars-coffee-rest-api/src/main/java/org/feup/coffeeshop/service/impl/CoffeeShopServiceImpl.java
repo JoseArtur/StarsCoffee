@@ -1,29 +1,51 @@
 package org.feup.coffeeshop.service.impl;
 
+import org.feup.coffeeshop.model.dto.AvailableItemsDto;
+import org.feup.coffeeshop.model.dto.PurchaseDto;
+import org.feup.coffeeshop.model.entity.AvailableItemsRequestEntity;
+import org.feup.coffeeshop.model.entity.LoginRequestEntity;
+import org.feup.coffeeshop.model.entity.PurchaseRequestEntity;
+import org.feup.coffeeshop.model.request.PurchaseRequest;
+import org.feup.coffeeshop.model.response.AvailableItemsListResponse;
+import org.feup.coffeeshop.repository.AvailableItemsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
-import org.feup.coffeeshop.model.converter.CoffeeShopConverter;
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.converter.StarsCoffeeConverter;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
+import org.feup.coffeeshop.repository.LoginRepository;
+import org.feup.coffeeshop.repository.PurchaseRepository;
 import org.feup.coffeeshop.service.CoffeeShopService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CoffeeShopServiceImpl implements CoffeeShopService {
 
     private final CoffeeRepository repository;
-    private final CoffeeShopConverter coffeeShopConverter;
+    private final StarsCoffeeConverter starsCoffeeConverter;
 
-    public CoffeeShopServiceImpl(CoffeeRepository repository, CoffeeShopConverter coffeeShopConverter) {
+    private final LoginRepository loginRepository;
+
+    private final AvailableItemsRepository availableItemsRepository;
+
+    private final PurchaseRepository purchaseRepository;
+
+    public CoffeeShopServiceImpl(CoffeeRepository repository, StarsCoffeeConverter starsCoffeeConverter, LoginRepository loginRepository,
+    AvailableItemsRepository availableItemsRepository, PurchaseRepository purchaseRepository) {
         this.repository = repository;
-        this.coffeeShopConverter = coffeeShopConverter;
+        this.starsCoffeeConverter = starsCoffeeConverter;
+        this.loginRepository = loginRepository;
+        this.availableItemsRepository = availableItemsRepository;
+        this.purchaseRepository = purchaseRepository;
     }
 
 
@@ -31,7 +53,7 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     public OrderListResponse getCustomer(Long id) {
         final OrderListResponse response = new OrderListResponse();
         return repository.findById(id)
-                .map(entity -> OrderListResponse.builder().customers(Collections.singletonList(coffeeShopConverter.toDto(entity))).build())
+                .map(entity -> OrderListResponse.builder().customers(Collections.singletonList(starsCoffeeConverter.toDto(entity))).build())
                 .orElse(response);
     }
 
@@ -39,9 +61,9 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     public OrderListResponse getAllCustomers() {
         final List<OrderRequestEntity> entities = repository.findAll();
 
-        final List<CoffeeShopDto> converted = entities
+        final List<UserDto> converted = entities
                 .stream()
-                .map(coffeeShopConverter::toDto)
+                .map(starsCoffeeConverter::toDto)
                 .collect(Collectors.toList());
 
         return OrderListResponse.builder().customers(converted).build();
@@ -49,27 +71,37 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     }
 
     @Override
-    public CoffeeShopDto createCustomer(OrderRequest request) {
-        final OrderRequestEntity saved = repository.save(coffeeShopConverter.toEntity(request));
-        return coffeeShopConverter.toDto(saved);
+    public UserDto createCustomer(OrderRequest request) {
+        final OrderRequestEntity saved = repository.save(starsCoffeeConverter.toEntity(request));
+        return starsCoffeeConverter.toDto(saved);
     }
 
     @Override
-    public CoffeeShopDto login(OrderRequest request) {
-        //final OrderRequestEntity response = repository.findByEmail(request.getEmail(), request.getPassword());
-        return null; //coffeeShopConverter.toDto(response);
+    public PurchaseDto createPurchase(PurchaseRequest request) {
+        final PurchaseRequestEntity saved = purchaseRepository.save(starsCoffeeConverter.toPurchaseEntity(request));
+        return starsCoffeeConverter.toPurchaseDto(saved);
     }
 
     @Override
-    public CoffeeShopDto updateCustomer(Long id, OrderRequest request) {
+    public UserDto login(OrderRequest request) {
+        LoginRequestEntity response = loginRepository.findByEmailPassword(request.getEmail(), request.getPassword());
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return starsCoffeeConverter.toLoginDto(response);
+    }
+
+    @Override
+    public UserDto updateCustomer(Long id, OrderRequest request) {
         final Optional<OrderRequestEntity> optionalCustomerEntity = repository.findById(id);
         if (!optionalCustomerEntity.isPresent()) {
             return null;
         } else {
-            final OrderRequestEntity toBeUpdated = coffeeShopConverter.toEntity(request);
+            final OrderRequestEntity toBeUpdated = starsCoffeeConverter.toEntity(request);
             toBeUpdated.setId(optionalCustomerEntity.get().getId());
             final OrderRequestEntity saved = repository.save(toBeUpdated);
-            return coffeeShopConverter.toDto(saved);
+            return starsCoffeeConverter.toDto(saved);
         }
 
     }
@@ -93,6 +125,18 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
             repository.deleteAll();
             return OrderDeleteResponse.builder().deletedCustomerCount(count).build();
         }
+    }
+
+    @Override
+    public AvailableItemsListResponse getAvailableItems() {
+        final List<AvailableItemsRequestEntity> entities = availableItemsRepository.findAll();
+
+        final List<AvailableItemsDto> converted = entities
+                .stream()
+                .map(starsCoffeeConverter::toAvailableItemsDto)
+                .collect(Collectors.toList());
+
+        return AvailableItemsListResponse.builder().availableItems(converted).build();
     }
 
 }
