@@ -27,7 +27,7 @@ public class OrderRequestEntity {
     private String name;
 
     @Column
-    private String surname;
+    private String nif;
 
     @Column
     private String telephone;

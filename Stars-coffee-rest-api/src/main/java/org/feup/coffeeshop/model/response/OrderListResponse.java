@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.dto.UserDto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderListResponse implements Serializable {
-    private List<CoffeeShopDto> customers;
+    private List<UserDto> customers;
 }

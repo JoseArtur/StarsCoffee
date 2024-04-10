@@ -22,17 +22,32 @@ import org.hibernate.annotations.Where;
 @Setter
 @ToString
 @AllArgsConstructor
-@Table(name = "CUSTOMER")
-public class LoginRequestEntity {
+@Table(name = "STOCK_ITEMS")
+public class AvailableItemsRequestEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column
-    private String email;
+    private String itemName;
 
     @Column
-    private String password;
+    private String description;
+
+    @Column
+    private String itemType;
+
+    @Column
+    private String price;
+
+    @Column
+    private String imageUrl;
+
+    @Column
+    private String customizationOptions;
+
+    @Column
+    private String specialAttributes;
 
 }

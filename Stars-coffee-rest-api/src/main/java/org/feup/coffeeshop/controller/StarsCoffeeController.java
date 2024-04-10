@@ -1,7 +1,10 @@
 package org.feup.coffeeshop.controller;
 
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.dto.PurchaseDto;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
+import org.feup.coffeeshop.model.request.PurchaseRequest;
+import org.feup.coffeeshop.model.response.AvailableItemsListResponse;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
 import org.feup.coffeeshop.service.CoffeeShopService;
@@ -11,11 +14,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class CoffeeShopController {
+public class StarsCoffeeController {
 
     private final CoffeeShopService coffeeShopService;
 
-    public CoffeeShopController(CoffeeShopService coffeeShopService) {
+    public StarsCoffeeController(CoffeeShopService coffeeShopService) {
         this.coffeeShopService = coffeeShopService;
     }
 
@@ -38,8 +41,8 @@ public class CoffeeShopController {
     }
 
     @GetMapping("/get-available-items")
-    public ResponseEntity<OrderListResponse> getAvailableItems() {
-        OrderListResponse response = coffeeShopService.getAllCustomers();
+    public ResponseEntity<AvailableItemsListResponse> getAvailableItems() {
+        AvailableItemsListResponse response = coffeeShopService.getAvailableItems();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -50,31 +53,31 @@ public class CoffeeShopController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<CoffeeShopDto> createCustomer(@RequestBody OrderRequest request) {
+    public ResponseEntity<UserDto> createCustomer(@RequestBody OrderRequest request) {
         return new ResponseEntity<>(coffeeShopService.createCustomer(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/place-order")
-    public ResponseEntity<CoffeeShopDto> placeOrder(@RequestBody OrderRequest request) {
-        return new ResponseEntity<>(coffeeShopService.createCustomer(request), HttpStatus.CREATED);
+    public ResponseEntity<PurchaseDto> placeOrder(@RequestBody PurchaseRequest request) {
+        return new ResponseEntity<>(coffeeShopService.createPurchase(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/validate-order")
-    public ResponseEntity<CoffeeShopDto> validateOrder(@RequestBody OrderRequest request) {
+    public ResponseEntity<UserDto> validateOrder(@RequestBody OrderRequest request) {
         return new ResponseEntity<>(coffeeShopService.createCustomer(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<CoffeeShopDto> login(@RequestBody OrderRequest request) {
+    public ResponseEntity<UserDto> login(@RequestBody OrderRequest request) {
         return new ResponseEntity<>(coffeeShopService.login(request), HttpStatus.CREATED);
     }
     @PutMapping("/update-customer/{id}")
-    public ResponseEntity<CoffeeShopDto> updateCustomer(@PathVariable("id") Long id, @RequestBody OrderRequest request) {
-        CoffeeShopDto coffeeShopDto = coffeeShopService.updateCustomer(id, request);
-        if (null == coffeeShopDto) {
+    public ResponseEntity<UserDto> updateCustomer(@PathVariable("id") Long id, @RequestBody OrderRequest request) {
+        UserDto userDto = coffeeShopService.updateCustomer(id, request);
+        if (null == userDto) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(coffeeShopDto, HttpStatus.OK);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
     }
 

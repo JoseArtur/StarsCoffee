@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Order Terminal</title>
+<link rel="stylesheet" href="/css/home.css" type="text/css">
+<link rel="icon" href="/imgs/favcoffee.ico" type="image/x-icon">
+</head>
+<body>
+<div class="container">
+    <h1>Stars Coffee Order Terminal</h1>
+    <ul class="orders" id="orders-list">
+        <!-- Orders will be dynamically populated here -->
+    </ul>
+</div>
+
+<script>
+    // Function to fetch available items from the API
+    function fetchAvailableItems() {
+        fetch('http://localhost:8090/coffee-shop/get-available-items', {
+            method: 'POST', // Making a POST request
+            headers: {
+                'Content-Type': 'application/json'
+                // You may need to add more headers as per your API requirements
+            },
+            // You can pass any necessary data in the body if required by your API
+            // body: JSON.stringify({ /* your data object here */ })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const ordersList = document.getElementById('orders-list');
+            ordersList.innerHTML = ''; // Clear previous orders
+
+            data.forEach(item => {
+                const itemElement = document.createElement('li');
+                itemElement.classList.add('order');
+                itemElement.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p><strong>Price:</strong> $${item.price}</p>
+                    <p><strong>Description:</strong> ${item.description}</p>
+                `;
+                ordersList.appendChild(itemElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching available items:', error);
+        });
+    }
+
+    // Call the fetchAvailableItems function when the page loads
+    window.onload = fetchAvailableItems;
+</script>
+</body>
+</html>

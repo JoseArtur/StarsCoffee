@@ -1,6 +1,6 @@
 package org.feup.coffeeshop.builder;
 
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
@@ -28,8 +28,8 @@ public class CustomerMockDataBuilder {
                 .build();
     }
 
-    public static CoffeeShopDto generateCustomerDto(long customerId) {
-        final CoffeeShopDto dto = GenericMockDataBuilder.of(CoffeeShopDto.class)
+    public static UserDto generateCustomerDto(long customerId) {
+        final UserDto dto = GenericMockDataBuilder.of(UserDto.class)
                 .excludeField("id")
                 .build();
         dto.setId(customerId);

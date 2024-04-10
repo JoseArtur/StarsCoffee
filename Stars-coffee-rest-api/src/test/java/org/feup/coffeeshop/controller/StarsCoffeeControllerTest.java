@@ -1,7 +1,7 @@
 package org.feup.coffeeshop.controller;
 
 import org.feup.coffeeshop.base.BaseControllerTest;
-import org.feup.coffeeshop.model.dto.CoffeeShopDto;
+import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@WebMvcTest(value = CoffeeShopController.class)
-class CoffeeShopControllerTest extends BaseControllerTest {
+@WebMvcTest(value = StarsCoffeeController.class)
+class StarsCoffeeControllerTest extends BaseControllerTest {
 
     private static final long CUSTOMER_ID = 4;
     private OrderListResponse orderListResponse;
     private OrderRequest orderRequest;
-    private CoffeeShopDto coffeeShopDto;
+    private UserDto userDto;
     private OrderDeleteResponse orderDeleteResponse;
 
     @MockBean
@@ -38,7 +38,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
     void setUp() {
         orderListResponse = generateCustomerListResponse(CUSTOMER_ID);
         orderRequest = generateCustomerRequest();
-        coffeeShopDto = generateCustomerDto(CUSTOMER_ID);
+        userDto = generateCustomerDto(CUSTOMER_ID);
         orderDeleteResponse = generateCustomerDeleteResponse();
         this.mockMvc = webAppContextSetup(wac)
                 .apply(springSecurity(springSecurityFilterChain))
@@ -99,7 +99,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
 
     @Test
     void createCustomer() {
-        when(coffeeShopService.createCustomer(orderRequest)).thenReturn(coffeeShopDto);
+        when(coffeeShopService.createCustomer(orderRequest)).thenReturn(userDto);
 
         try {
             mockMvc.perform(post("/register").with(httpBasic("admin", "admin"))
@@ -119,7 +119,7 @@ class CoffeeShopControllerTest extends BaseControllerTest {
 
     @Test
     void updateCustomer() {
-        when(coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest)).thenReturn(coffeeShopDto);
+        when(coffeeShopService.updateCustomer(CUSTOMER_ID, orderRequest)).thenReturn(userDto);
         try {
             mockMvc.perform(put("/update-customer/{id}", CUSTOMER_ID)
                             .with(httpBasic("admin", "admin"))
