@@ -40,6 +40,9 @@
             android:name=".RestaurantsActivity"
             android:exported="false" />
         <activity
+            android:name=".VoucherActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignupActivity"
             android:exported="true">
             <intent-filter>

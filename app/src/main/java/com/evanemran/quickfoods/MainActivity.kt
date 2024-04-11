@@ -225,12 +225,27 @@ private var apiService :CoffeeAPIService
 
     }
 
-    private val drawerClickListener: ClickListener<DrawerMenu> = object : ClickListener<DrawerMenu>{
-        override fun onClicked(data: DrawerMenu) {
-            Toast.makeText(this@MainActivity, "Clicked " + data.title, Toast.LENGTH_SHORT).show()
-        }
+    private val drawerClickListener: ClickListener<DrawerMenu> =
+            object : ClickListener<DrawerMenu> {
+                override fun onClicked(data: DrawerMenu) {
+                    when (data) {
+                        DrawerMenu.VOUCHERS -> {
+                            // Start OrderHistoryActivity when ORDER_REORDER is clicked
+                            val intent = Intent(this@MainActivity, VoucherActivity::class.java)
+                            startActivity(intent)
+                        }
 
-    }
+                        else -> {
+                            Toast.makeText(
+                                    this@MainActivity,
+                                    "Clicked" + data.title,
+                                    Toast.LENGTH_SHORT
+                            )
+                                    .show()
+                        }
+                    }
+                }
+            }
 
     private val permissionListener: ClickListener<Boolean> = object : ClickListener<Boolean>{
         override fun onClicked(data: Boolean) {
