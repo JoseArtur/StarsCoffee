@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.evanemran.quickfoods.FoodDetailActivity
 import com.evanemran.quickfoods.R
+import com.evanemran.quickfoods.VoucherDetailActivity
 import com.evanemran.quickfoods.adapters.FoodListAdapter
 import com.evanemran.quickfoods.adapters.VoucherListAdapter
 import com.evanemran.quickfoods.dialogs.FoodDetailBottomSheet
@@ -18,6 +19,7 @@ import com.evanemran.quickfoods.models.Foods
 import com.evanemran.quickfoods.models.Vouchers
 import com.evanemran.quickfoods.models.menuItems
 import com.evanemran.quickfoods.models.voucherItems
+import com.google.gson.Gson
 
 class VoucherListFragment : Fragment() {
 private var view: View? = null
@@ -40,12 +42,9 @@ private fun getVouchersList(): List<Vouchers> = voucherItems
 
 private val voucherClickListener = object : ClickListener<Vouchers> {
         override fun onClicked(data: Vouchers) {
-        if (data.voucherName == "Set voucher 1") {
-        val bottomSheet = FoodDetailBottomSheet()
-        bottomSheet.show(childFragmentManager, "BottomSheet")
-        } else {
-        startActivity(Intent(context, FoodDetailActivity::class.java).putExtra("voucher", data.toString()))
+                val gson = Gson()
+                val jsonString = gson.toJson(data)
+                startActivity(Intent(context, VoucherDetailActivity::class.java).putExtra("voucher", jsonString))
+                }
         }
-        }
-        }
-        }
+}

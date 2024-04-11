@@ -43,6 +43,9 @@
             android:name=".VoucherActivity"
             android:exported="false" />
         <activity
+            android:name=".VoucherDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignupActivity"
             android:exported="true">
             <intent-filter>
