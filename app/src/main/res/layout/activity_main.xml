@@ -69,6 +69,18 @@
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_love" />
+
+                <Button
+                    android:id="@+id/pointsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toStartOf="@+id/imageButton_love"
+                    android:scaleType="fitCenter"
+                    android:textSize="18sp"
+                    android:background="@android:color/transparent"
+                    android:gravity="right"
+                    android:text="number" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
@@ -120,6 +132,7 @@
 
             </LinearLayout>
         </ScrollView>
+        <include layout="@layout/home_grids" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

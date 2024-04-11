@@ -39,6 +39,9 @@
         android:theme="@style/Theme.StarsCoffee"
         tools:targetApi="31">
         <activity
+            android:name=".AddressAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrderHistoryActivity"
             android:exported="false" />
         <activity
@@ -55,6 +58,15 @@
             android:exported="false" />
         <activity
             android:name=".RestaurantDetailActivity"
+            android:exported="false" />
+             <activity
+            android:name=".RestaurantsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VoucherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VoucherDetailActivity"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"
@@ -74,5 +86,4 @@
             android:name=".MainActivity"
             android:exported="true" />
     </application>
-
 </manifest>
