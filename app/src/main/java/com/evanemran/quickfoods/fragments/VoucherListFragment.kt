@@ -23,11 +23,11 @@ class VoucherListFragment : Fragment() {
 private var view: View? = null
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.fragment_food, container, false)
+        view = inflater.inflate(R.layout.fragment_voucher, container, false)
 
-        val recyclerFoods = view?.findViewById<RecyclerView>(R.id.recycler_foods)
+        val recyclerVouchers = view?.findViewById<RecyclerView>(R.id.recycler_vouchers)
 
-        recyclerFoods?.apply {
+        recyclerVouchers?.apply {
         setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = VoucherListAdapter(context, getVouchersList(), voucherClickListener)
@@ -40,11 +40,11 @@ private fun getVouchersList(): List<Vouchers> = voucherItems
 
 private val voucherClickListener = object : ClickListener<Vouchers> {
         override fun onClicked(data: Vouchers) {
-        if (data.foodName == "Set meal 1") {
+        if (data.voucherName == "Set voucher 1") {
         val bottomSheet = FoodDetailBottomSheet()
         bottomSheet.show(childFragmentManager, "BottomSheet")
         } else {
-        startActivity(Intent(context, FoodDetailActivity::class.java).putExtra("food", data.toString()))
+        startActivity(Intent(context, FoodDetailActivity::class.java).putExtra("voucher", data.toString()))
         }
         }
         }

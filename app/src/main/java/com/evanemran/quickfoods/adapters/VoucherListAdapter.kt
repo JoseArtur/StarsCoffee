@@ -18,19 +18,19 @@ import com.squareup.picasso.Picasso
 class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val listener: ClickListener<Vouchers>)
     : RecyclerView.Adapter<VoucherListViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherListViewHolder {
-        val layout = LayoutInflater.from(context).inflate(R.layout.list_food, parent, false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.list_voucher, parent, false)
         return VoucherListViewHolder(layout)
     }
 
     override fun onBindViewHolder(holder: VoucherListViewHolder, position: Int) {
         val item = list[holder.adapterPosition]
 
-        Picasso.get().load(item.image_url).into(holder.imageView_foods)
-        holder.textView_foodName.setText(item.foodName)
-        holder.textView_foodInfo.setText(item.description)
+        Picasso.get().load(item.image_url).into(holder.imageView_vouchers)
+        holder.textView_voucherName.setText(item.voucherName)
+        holder.textView_voucherInfo.setText(item.description)
 
 
-        holder.foodList_container.setOnClickListener {
+        holder.voucherList_container.setOnClickListener {
             listener.onClicked(item)
         }
     }
@@ -41,17 +41,17 @@ class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val li
 }
 
 class VoucherListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var imageView_foods: ImageView
-    var textView_foodName: TextView
-    var textView_foodInfo: TextView
-    var textView_foodPrice: TextView
-    var foodList_container: CardView
+    var imageView_vouchers: ImageView
+    var textView_voucherName: TextView
+    var textView_voucherInfo: TextView
+    var textView_voucherPrice: TextView
+    var voucherList_container: CardView
 
     init {
-        imageView_foods = itemView.findViewById(R.id.imageView_foods)
-        textView_foodName = itemView.findViewById(R.id.textView_foodName)
-        textView_foodInfo = itemView.findViewById(R.id.textView_foodInfo)
-        textView_foodPrice = itemView.findViewById(R.id.textView_foodPrice)
-        foodList_container = itemView.findViewById(R.id.foodList_container)
+        imageView_vouchers = itemView.findViewById(R.id.imageView_vouchers)
+        textView_voucherName = itemView.findViewById(R.id.textView_voucherName)
+        textView_voucherInfo = itemView.findViewById(R.id.textView_voucherInfo)
+        textView_voucherPrice = itemView.findViewById(R.id.textView_voucherPrice)
+        voucherList_container = itemView.findViewById(R.id.voucherList_container)
     }
 }

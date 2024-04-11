@@ -15,7 +15,7 @@ val voucherItems = listOf(
 data class Vouchers (
     val id: Int,
     @SerializedName("name")
-    var foodName: String,
+    var voucherName: String,
     @SerializedName("description")
     var description: String,
     @SerializedName("value")
