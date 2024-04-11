@@ -1,4 +1,4 @@
-package com.evanemran.quickfoods.fragments
+package com.example.starscoffee.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,36 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.evanemran.quickfoods.FoodDetailActivity
-import com.evanemran.quickfoods.R
-import com.evanemran.quickfoods.VoucherDetailActivity
-import com.evanemran.quickfoods.adapters.FoodListAdapter
-import com.evanemran.quickfoods.adapters.VoucherListAdapter
-import com.evanemran.quickfoods.dialogs.FoodDetailBottomSheet
-import com.evanemran.quickfoods.listeners.ClickListener
-import com.evanemran.quickfoods.models.Foods
+import com.example.starscoffee.VoucherDetailActivity
+import com.example.starscoffee.adapters.VoucherListAdapter
+import com.example.starscoffee.listeners.ClickListener
 import com.evanemran.quickfoods.models.Vouchers
-import com.evanemran.quickfoods.models.menuItems
 import com.evanemran.quickfoods.models.voucherItems
+import com.example.starscoffee.databinding.FragmentVoucherBinding
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 class VoucherListFragment : Fragment() {
-private var view: View? = null
+        private var _binding: FragmentVoucherBinding? = null
+        private val binding get() = _binding!!
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.fragment_voucher, container, false)
+                _binding = FragmentVoucherBinding.inflate(inflater, container, false)
 
-        val recyclerVouchers = view?.findViewById<RecyclerView>(R.id.recycler_vouchers)
 
-        recyclerVouchers?.apply {
-        setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        adapter = VoucherListAdapter(context, getVouchersList(), voucherClickListener)
-        }
+                lifecycleScope.launch {
+                        val voucherList = getVouchersList()
 
-        return view
+                        binding.recyclerVouchers.apply {
+                                setHasFixedSize(true)
+                                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                                adapter = VoucherListAdapter(context, voucherList, voucherClickListener)
+                        }
+                }
+
+                return binding.root
         }
 
 private fun getVouchersList(): List<Vouchers> = voucherItems

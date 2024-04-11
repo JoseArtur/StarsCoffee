@@ -1,32 +1,27 @@
-package com.evanemran.quickfoods
+package com.example.starscoffee
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.evanemran.quickfoods.adapters.FoodsViewPagerAdapter
-import com.evanemran.quickfoods.fragments.FoodListFragment
-import com.evanemran.quickfoods.fragments.VoucherListFragment
-import com.evanemran.quickfoods.models.Foods
-import com.evanemran.quickfoods.models.Restaurant
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_restaurant_detail.*
+import com.example.starscoffee.adapters.FoodsViewPagerAdapter
+import com.example.starscoffee.fragments.VoucherListFragment
+import com.example.starscoffee.databinding.ActivityVoucherBinding
 
-import kotlinx.android.synthetic.main.home_grids.*
 class VoucherActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityVoucherBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_voucher)
+        binding = ActivityVoucherBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         getCategory()
-//        getFoodList()
-
     }
 
     private fun getCategory() {
         val categories: MutableList<String> = mutableListOf()
         categories.add("Vouchers")
 
-        viewPager?.let { setupViewPager(it, categories) }
+        binding.viewPager?.let { setupViewPager(it, categories) }
 //        tabLayout!!.setupWithViewPager(viewPager)
     }
 
@@ -40,6 +35,6 @@ class VoucherActivity : AppCompatActivity() {
         }
 
         viewPager.adapter = viewPagerAdapter
-        tabLayout!!.setupWithViewPager(viewPager)
+        binding.tabLayout!!.setupWithViewPager(viewPager)
     }
 }

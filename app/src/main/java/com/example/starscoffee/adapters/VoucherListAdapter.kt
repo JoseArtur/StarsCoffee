@@ -1,4 +1,4 @@
-package com.evanemran.quickfoods.adapters
+package com.example.starscoffee.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,18 +8,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.evanemran.quickfoods.R
-import com.evanemran.quickfoods.listeners.ClickListener
-import com.evanemran.quickfoods.models.Foods
 import com.evanemran.quickfoods.models.Vouchers
+import com.example.starscoffee.databinding.ListVoucherBinding
+import com.example.starscoffee.listeners.ClickListener
 import com.squareup.picasso.Picasso
 
 
 class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val listener: ClickListener<Vouchers>)
     : RecyclerView.Adapter<VoucherListViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherListViewHolder {
-        val layout = LayoutInflater.from(context).inflate(R.layout.list_voucher, parent, false)
-        return VoucherListViewHolder(layout)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ListVoucherBinding.inflate(layoutInflater, parent, false)
+        return VoucherListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: VoucherListViewHolder, position: Int) {
@@ -40,7 +40,7 @@ class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val li
     }
 }
 
-class VoucherListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class VoucherListViewHolder(val binding: ListVoucherBinding) : RecyclerView.ViewHolder(binding.root){
     var imageView_vouchers: ImageView
     var textView_voucherName: TextView
     var textView_voucherInfo: TextView
@@ -48,10 +48,10 @@ class VoucherListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     var voucherList_container: CardView
 
     init {
-        imageView_vouchers = itemView.findViewById(R.id.imageView_vouchers)
-        textView_voucherName = itemView.findViewById(R.id.textView_voucherName)
-        textView_voucherInfo = itemView.findViewById(R.id.textView_voucherInfo)
-        textView_voucherPrice = itemView.findViewById(R.id.textView_voucherPrice)
-        voucherList_container = itemView.findViewById(R.id.voucherList_container)
+        imageView_vouchers = binding.imageViewVouchers
+        textView_voucherName = binding.textViewVoucherName
+        textView_voucherInfo = binding.textViewVoucherInfo
+        textView_voucherPrice = binding.textViewVoucherPrice
+        voucherList_container = binding.voucherListContainer
     }
 }

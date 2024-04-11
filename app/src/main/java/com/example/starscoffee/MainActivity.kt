@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.starscoffee.VoucherActivity
 import com.example.starscoffee.adapters.DealsAdapter
 import com.example.starscoffee.adapters.DrawerAdapter
 import com.example.starscoffee.adapters.ServiceAdapter
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(binding.root)
 
+        val userPoints = "10"
+
         val toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
@@ -44,6 +47,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupServices()
         setupDeals()
         setupNavMenu()
+
+        setupPointsMenu(userPoints)
+
+        binding.pointsButton.setOnClickListener {
+            startActivity(Intent(this@MainActivity, CartActivity::class.java))
+        }
 
         binding.imageButtonCart.setOnClickListener {
             startActivity(Intent(this@MainActivity, CartActivity::class.java))
@@ -86,6 +95,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.recyclerDeals.adapter = dealsAdapter
     }
 
+    private fun setupPointsMenu(points: String) {
+        binding.pointsButton.run { binding.pointsButton.setText(points) }
+    }
+
     private fun setupServices() {
         val services: MutableList<Service> = mutableListOf()
         services.add(Service.ITEMS)
@@ -121,6 +134,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     DrawerMenu.ORDER_REORDER -> {
                         // Start OrderHistoryActivity when ORDER_REORDER is clicked
                         val intent = Intent(this@MainActivity, OrderHistoryActivity::class.java)
+                        startActivity(intent)
+                    }
+                    DrawerMenu.VOUCHERS -> {
+
+                        // Start OrderHistoryActivity when ORDER_REORDER is clicked
+
+                        val intent = Intent(this@MainActivity, VoucherActivity::class.java)
                         startActivity(intent)
                     }
 
