@@ -5,6 +5,7 @@ import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.request.PurchaseRequest;
 import org.feup.coffeeshop.model.response.AvailableItemsListResponse;
+import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
 import org.feup.coffeeshop.service.CoffeeShopService;
@@ -46,9 +47,9 @@ public class StarsCoffeeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/get-vouchers")
-    public ResponseEntity<OrderListResponse> getVouchers() {
-        OrderListResponse response = coffeeShopService.getAllCustomers();
+    @GetMapping("/get-all-vouchers")
+    public ResponseEntity<VoucherListResponse> getAllVouchers() {
+        VoucherListResponse response = coffeeShopService.getAllVouchers();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

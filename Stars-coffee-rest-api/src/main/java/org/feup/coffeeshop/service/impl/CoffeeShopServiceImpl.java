@@ -11,6 +11,10 @@ import org.feup.coffeeshop.repository.AvailableItemsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
 import org.feup.coffeeshop.model.converter.StarsCoffeeConverter;
 import org.feup.coffeeshop.model.dto.UserDto;
+import org.feup.coffeeshop.model.dto.VoucherDto;
+import org.feup.coffeeshop.model.entity.VoucherRequestEntity;
+import org.feup.coffeeshop.repository.VoucherRepository;
+import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
@@ -32,7 +36,7 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
 
     private final CoffeeRepository repository;
     private final StarsCoffeeConverter starsCoffeeConverter;
-
+    private final VoucherRepository voucherRepository;
     private final LoginRepository loginRepository;
 
     private final AvailableItemsRepository availableItemsRepository;
@@ -40,12 +44,13 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     private final PurchaseRepository purchaseRepository;
 
     public CoffeeShopServiceImpl(CoffeeRepository repository, StarsCoffeeConverter starsCoffeeConverter, LoginRepository loginRepository,
-    AvailableItemsRepository availableItemsRepository, PurchaseRepository purchaseRepository) {
+    AvailableItemsRepository availableItemsRepository, PurchaseRepository purchaseRepository, VoucherRepository voucherRepository) {
         this.repository = repository;
         this.starsCoffeeConverter = starsCoffeeConverter;
         this.loginRepository = loginRepository;
         this.availableItemsRepository = availableItemsRepository;
         this.purchaseRepository = purchaseRepository;
+        this.voucherRepository = voucherRepository;
     }
 
 
@@ -67,6 +72,19 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
                 .collect(Collectors.toList());
 
         return OrderListResponse.builder().customers(converted).build();
+
+    }
+
+    @Override
+    public VoucherListResponse getAllVouchers() {
+        final List<VoucherRequestEntity> entities = voucherRepository.findAll();
+
+        final List<VoucherDto> converted = entities
+                .stream()
+                .map(starsCoffeeConverter::toVoucherDto)
+                .collect(Collectors.toList());
+
+        return VoucherListResponse.builder().vouchers(converted).build();
 
     }
 
