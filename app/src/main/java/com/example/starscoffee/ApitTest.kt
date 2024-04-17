@@ -1,7 +1,9 @@
-package org.feup.coffeeshop
+package com.example.starscoffee
 
-import okhttp3.*
-import org.junit.jupiter.api.Test
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.junit.Test
 import java.io.IOException
 
 class ApiTest {
@@ -11,11 +13,11 @@ class ApiTest {
         val url = "http://localhost:8090/coffee-shop/get-all-customers"
         val response = run(url)
         if (response.isSuccessful) {
-            val responseBody = response.body?.string()
+            val responseBody = response.body()?.string()
             println("Response: $responseBody")
             assert(responseBody != null)
         } else {
-            println("Unexpected response code: ${response.code}")
+            println("Unexpected response code: ${response.code()}")
             assert(false)
         }
     }
@@ -23,9 +25,9 @@ class ApiTest {
     private fun run(url: String): Response {
         val client = OkHttpClient()
         val request = Request.Builder()
-                .url(url)
-                .get() // Liberato if you need to do a POST request update this line to .post()
-                .build()
+            .url(url)
+            .get() // Liberato if you need to do a POST request update this line to .post()
+            .build()
 
         return try {
             client.newCall(request).execute()
