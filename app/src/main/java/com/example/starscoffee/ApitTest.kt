@@ -1,39 +1,32 @@
-package com.example.starscoffee
-
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import org.junit.Test
+import okhttp3.*
 import java.io.IOException
 
 class ApiTest {
-
-    @Test
     fun testRun() {
-        val url = "http://localhost:8090/coffee-shop/get-all-customers"
-        val response = run(url)
-        if (response.isSuccessful) {
-            val responseBody = response.body()?.string()
-            println("Response: $responseBody")
-            assert(responseBody != null)
-        } else {
-            println("Unexpected response code: ${response.code()}")
-            assert(false)
-        }
-    }
-
-    private fun run(url: String): Response {
+        val url = "http://192.168.56.1:8090/coffee-shop/get-all-customers"
         val client = OkHttpClient()
+
         val request = Request.Builder()
             .url(url)
-            .get() // Liberato if you need to do a POST request update this line to .post()
             .build()
 
-        return try {
-            client.newCall(request).execute()
-        } catch (e: IOException) {
-            println("Failed to execute request: ${e.message}")
-            throw e
-        }
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute request: ${e.message}")
+                // Handle failure here
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    println("Unexpected response code: ${response.code()}")
+                    // Handle unsuccessful response here
+                    return
+                }
+
+                val responseBody = response.body()?.string()
+                println("Response: $responseBody")
+                // Process response here
+            }
+        })
     }
 }

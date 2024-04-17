@@ -1,5 +1,6 @@
 package com.example.starscoffee
 
+import ApiTest
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -57,6 +58,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.imageButtonCart.setOnClickListener {
             startActivity(Intent(this@MainActivity, CartActivity::class.java))
         }
+
+        val api = ApiTest()
+        api.testRun()
+
+        println("Here we are")
     }
 
 
