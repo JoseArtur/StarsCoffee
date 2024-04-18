@@ -36,8 +36,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
     private fun login(email: String, password: String) {
-        val url = "http://10.227.158.196:8090/coffee-shop/login" //bella url
-        //val url = "http://localhost:8090/coffee-shop/login"
+        val url = "http://10.0.2.2:8090/coffee-shop/login"
         val json = "{\"email\":\"$email\", \"password\":\"$password\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
 
