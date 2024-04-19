@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starscoffee.VoucherDetailActivity
 import com.example.starscoffee.adapters.VoucherListAdapter
 import com.example.starscoffee.listeners.ClickListener
-import com.evanemran.quickfoods.models.Vouchers
-import com.evanemran.quickfoods.models.voucherItems
+import com.evanemran.quickfoods.models.Voucher
+import com.example.starscoffee.StarsCoffeeAPI
 import com.example.starscoffee.databinding.FragmentVoucherBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class VoucherListFragment : Fragment() {
         private var _binding: FragmentVoucherBinding? = null
@@ -38,10 +39,25 @@ class VoucherListFragment : Fragment() {
                 return binding.root
         }
 
-private fun getVouchersList(): List<Vouchers> = voucherItems
+private fun getVouchersList(): List<Voucher> {
+        val api = StarsCoffeeAPI()
+        val vouchersDeferred = api.getAllVouchers()
+        var v2 = ""
 
-private val voucherClickListener = object : ClickListener<Vouchers> {
-        override fun onClicked(data: Vouchers) {
+        // Use a CoroutineScope to wait for the result of the coroutine
+        runBlocking {
+                // Wait for the result and access the list of vouchers
+                val vouchers = vouchersDeferred.await()
+                v2 = vouchers.toString()
+                // Process the list of vouchers as needed
+                println("Vouchers2: $vouchers")
+        }
+        println("Vouchers3: $v2")
+        return emptyList()
+}
+
+private val voucherClickListener = object : ClickListener<Voucher> {
+        override fun onClicked(data: Voucher) {
                 val gson = Gson()
                 val jsonString = gson.toJson(data)
                 startActivity(Intent(context, VoucherDetailActivity::class.java).putExtra("voucher", jsonString))

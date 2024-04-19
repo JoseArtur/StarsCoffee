@@ -1,6 +1,5 @@
 package com.example.starscoffee
 
-import ApiTest
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,7 +8,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.starscoffee.VoucherActivity
 import com.example.starscoffee.adapters.DealsAdapter
 import com.example.starscoffee.adapters.DrawerAdapter
 import com.example.starscoffee.adapters.ServiceAdapter
@@ -58,11 +56,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.imageButtonCart.setOnClickListener {
             startActivity(Intent(this@MainActivity, CartActivity::class.java))
         }
-
-        val api = ApiTest()
-        api.testRun()
-
-        println("Here we are")
     }
 
 
