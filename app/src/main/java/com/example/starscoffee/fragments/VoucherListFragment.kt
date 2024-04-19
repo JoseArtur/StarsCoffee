@@ -12,6 +12,7 @@ import com.example.starscoffee.VoucherDetailActivity
 import com.example.starscoffee.adapters.VoucherListAdapter
 import com.example.starscoffee.listeners.ClickListener
 import com.evanemran.quickfoods.models.Voucher
+import com.evanemran.quickfoods.models.parseJsonToVouchersList
 import com.example.starscoffee.StarsCoffeeAPI
 import com.example.starscoffee.databinding.FragmentVoucherBinding
 import com.google.gson.Gson
@@ -41,19 +42,9 @@ class VoucherListFragment : Fragment() {
 
 private fun getVouchersList(): List<Voucher> {
         val api = StarsCoffeeAPI()
-        val vouchersDeferred = api.getAllVouchers()
-        var v2 = ""
-
-        // Use a CoroutineScope to wait for the result of the coroutine
-        runBlocking {
-                // Wait for the result and access the list of vouchers
-                val vouchers = vouchersDeferred.await()
-                v2 = vouchers.toString()
-                // Process the list of vouchers as needed
-                println("Vouchers2: $vouchers")
-        }
+        val v2 = api.getAllVouchers()
         println("Vouchers3: $v2")
-        return emptyList()
+        return parseJsonToVouchersList(v2)
 }
 
 private val voucherClickListener = object : ClickListener<Voucher> {

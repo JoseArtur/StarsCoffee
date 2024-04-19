@@ -13,16 +13,27 @@ import kotlinx.coroutines.runBlocking
 
 class StarsCoffeeAPI {
     var resp : String = ""
-    fun getAllVouchers(): Deferred<String?> {
+    fun getAllVouchers(): String {
         val url = "http://192.168.56.1:8090/coffee-shop/get-all-vouchers"
 
         val request = Request.Builder()
             .url(url)
             .build()
 
-        return GlobalScope.async(Dispatchers.IO) {
+        var v2 = ""
+        val vouchersDeferred = GlobalScope.async(Dispatchers.IO) {
             callRequest4(request)
         }
+
+        runBlocking {
+            // Wait for the result and access the list of vouchers
+            val vouchers = vouchersDeferred.await()
+            v2 = vouchers.toString()
+            // Process the list of vouchers as needed
+            println("Vouchers1: $vouchers")
+        }
+        return v2
+
     }
 
     fun callRequest(request : Request) {
