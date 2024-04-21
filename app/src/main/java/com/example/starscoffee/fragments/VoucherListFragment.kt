@@ -40,7 +40,7 @@ class VoucherListFragment : Fragment() {
                 return binding.root
         }
 
-private fun getVouchersList(): List<Voucher> {
+fun getVouchersList(): List<Voucher> {
         val api = StarsCoffeeAPI()
         val v2 = api.getAllVouchers()
         println("Vouchers3: $v2")

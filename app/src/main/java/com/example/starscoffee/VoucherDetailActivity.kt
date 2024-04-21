@@ -25,6 +25,9 @@ class VoucherDetailActivity : AppCompatActivity() {
         // Update the text property of the TextView
         binding.textViewVoucherNameDetail.text = voucher.voucherName
         binding.textViewVoucherInfo.text = voucher.description
+        binding.textViewVoucherPrice.text = voucher.pointsRequired.toString() + " points"
+
+
 
         // Load the image from the URL into the ImageView using Picasso
         Picasso.get().load(voucher.image_url).into(binding.voucherImage)

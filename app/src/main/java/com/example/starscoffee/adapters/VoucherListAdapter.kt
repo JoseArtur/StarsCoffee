@@ -27,6 +27,7 @@ class VoucherListAdapter (val context: Context, val list: List<Voucher>, val lis
         Picasso.get().load(item.image_url).into(holder.imageView_vouchers)
         holder.textView_voucherName.setText(item.voucherName)
         holder.textView_voucherInfo.setText(item.description)
+        holder.textView_voucherPrice.setText(item.pointsRequired.toString() + " points")
 
 
         holder.voucherList_container.setOnClickListener {
