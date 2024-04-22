@@ -43,7 +43,7 @@ class CartActivity : AppCompatActivity() {
                     .putExtra("total", binding.textViewTotal.text.toString())
                     .putExtra("subTotal", binding.textViewSubTotal.text.toString())
                     .putExtra("userPoints", tempUserPoints)
-                    .putExtra("voucherTotal", voucherTotal)
+                    .putExtra("voucherTotal", voucherTotal.toString())
                     .putExtra("vouchersApplied", ArrayList(voucherList))
             )
         }

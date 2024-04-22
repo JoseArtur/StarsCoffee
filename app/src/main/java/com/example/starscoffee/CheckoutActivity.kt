@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.evanemran.quickfoods.models.Voucher
 import com.example.starscoffee.adapters.SummaryAdapter
+import com.example.starscoffee.adapters.VoucherCheckoutAdapter
 import com.example.starscoffee.databinding.ActivityCheckoutBinding
 import com.example.starscoffee.dialogs.PaymentOptionDialog
 import com.example.starscoffee.listeners.ClickListener
@@ -16,6 +18,7 @@ class CheckoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckoutBinding
     private var selectedChannel: PaymentChannels? = null
     private lateinit var cartList: ArrayList<Foods>
+    private lateinit var voucherList: ArrayList<Voucher>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,7 @@ class CheckoutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupCheckoutData()
+        setupVoucherList()
         selectedChannel = PaymentChannels(0, "Cash", R.drawable.ic_money)
         //  cartList = intent.getSerializableExtra("cartList") as ArrayList<Foods>
 
@@ -70,6 +74,18 @@ class CheckoutActivity : AppCompatActivity() {
         // Calculate the subtotal and total initially
         binding.textViewSubtotal.text = intent.getStringExtra("subTotal")
         binding.textViewTotal.text = intent.getStringExtra("total")
+    }
+
+    private fun setupVoucherList() {
+        voucherList = intent.getSerializableExtra("vouchersApplied") as ArrayList<Voucher>
+        binding.recyclerVouchers.setHasFixedSize(true)
+        binding.recyclerVouchers.isNestedScrollingEnabled = false
+        binding.recyclerVouchers.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val voucherAdapter = VoucherCheckoutAdapter(this, voucherList)
+        binding.recyclerVouchers.adapter = voucherAdapter
+        // Calculate the subtotal and total initially
+        binding.textViewVoucherTotal.text = intent.getStringExtra("voucherTotal") + " €"
     }
 
 
