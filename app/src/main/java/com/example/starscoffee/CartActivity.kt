@@ -12,11 +12,14 @@ import com.example.starscoffee.adapters.CartListAdapter
 import com.example.starscoffee.databinding.ActivityCartBinding
 import com.example.starscoffee.dialogs.VoucherDialog
 import com.example.starscoffee.listeners.ClickListener
-import com.example.starscoffee.models.Coupon
 import com.example.starscoffee.models.Foods
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
+    var tempUserPoints = 0
+    var permUserPoints = 0
+    var voucherTotal = 0
+    var voucherList: MutableList<Voucher> = mutableListOf()
 
     companion object {
         val cartList: MutableList<Foods> = mutableListOf()
@@ -26,16 +29,22 @@ class CartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        tempUserPoints = intent.getIntExtra("userPoints", 0)
+        permUserPoints = tempUserPoints
+        println("User points: " + tempUserPoints)
+        setupPointsMenu(tempUserPoints)
 
         setupCartData()
 
         binding.buttonReviewAddress.setOnClickListener {
             startActivity(
-                Intent(this, CheckoutActivity::class.java).putExtra(
-                    "cartList",
-                    ArrayList(cartList)
-                ).putExtra("total", binding.textViewTotal.text.toString())
+                Intent(this, CheckoutActivity::class.java)
+                    .putExtra("cartList", ArrayList(cartList))
+                    .putExtra("total", binding.textViewTotal.text.toString())
                     .putExtra("subTotal", binding.textViewSubTotal.text.toString())
+                    .putExtra("userPoints", tempUserPoints)
+                    .putExtra("voucherTotal", voucherTotal)
+                    .putExtra("vouchersApplied", ArrayList(voucherList))
             )
         }
 
@@ -56,7 +65,10 @@ class CartActivity : AppCompatActivity() {
         binding.recyclerCartItem.adapter = cartListAdapter
         calculateSubTotal()
         calcutateTotal()
+    }
 
+    private fun setupPointsMenu(points: Int) {
+        binding.pointsButton.run { binding.pointsButton.setText(points.toString())}
     }
 
     // Function to calculate the total
@@ -77,21 +89,41 @@ class CartActivity : AppCompatActivity() {
         ClickListener<Foods> {
         override fun onClicked(data: Foods) {
         }
-
     }
 
     private val voucherClickListener: ClickListener<Voucher> = object :
         ClickListener<Voucher> {
         override fun onClicked(data: Voucher) {
-            println("buceta")
-            Toast.makeText(this@CartActivity, data.voucherName + " voucher applied", Toast.LENGTH_SHORT).show()
+            if(tempUserPoints >= data.pointsRequired) {
+                Toast.makeText(
+                    this@CartActivity,
+                    data.voucherName + " voucher applied",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-
-            // Calculate the new subtotal after applying the coupon
-            var total = cartList.sumOf { it.price * it.quantity } - data.value
-            if(total < 0) {total=0}
-            val textViewTotal = findViewById<TextView>(R.id.textView_total)
-            textViewTotal.text = getString(R.string.total_price, total)
+                // Calculate the new subtotal after applying the coupon
+                voucherTotal += data.value
+                var total = cartList.sumOf { it.price * it.quantity }
+                if (voucherTotal > total) {
+                    voucherTotal = total
+                    total = 0
+                }
+                else {
+                    total -= voucherTotal
+                }
+                tempUserPoints -= data.pointsRequired
+                setupPointsMenu(tempUserPoints)
+                val textViewTotal = findViewById<TextView>(R.id.textView_total)
+                textViewTotal.text = getString(R.string.total_price, total)
+                voucherList.add(data)
+            }
+            else{
+                Toast.makeText(
+                    this@CartActivity,
+                    "You do not have enough points to apply this voucher",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

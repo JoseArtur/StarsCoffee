@@ -2,6 +2,7 @@ package com.evanemran.quickfoods.models
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class VouchersResponse(
     val vouchers: List<Voucher>
@@ -22,7 +23,7 @@ data class Voucher (
     @SerializedName("restaurant")
     var restaurant: Int = -1,
     var isAvailable: Boolean = true
-)
+) : Serializable
 
 fun parseJsonToVouchersList(jsonString: String): List<Voucher> {
     val gson = Gson()

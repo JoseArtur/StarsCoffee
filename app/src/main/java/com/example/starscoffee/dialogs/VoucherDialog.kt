@@ -48,7 +48,7 @@ class VoucherDialog(
     private val voucherClickListener = object : ClickListener<Voucher> {
         override fun onClicked(data: Voucher) {
             listener.onClicked(data)
-            dismiss()
+            //dismiss()
         }
     }
 

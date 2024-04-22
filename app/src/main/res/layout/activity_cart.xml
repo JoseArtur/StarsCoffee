@@ -16,8 +16,31 @@
         android:layout_alignParentTop="true"
         android:background="@color/accentColor"
         app:subtitleTextColor="@color/white"
-        app:title="Cart"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/white" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/cart"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/pointsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:text="-" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

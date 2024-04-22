@@ -19,8 +19,6 @@ import com.example.starscoffee.models.Service
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(binding.root)
 
-        val userPoints = "10"
+        val userPoints = 10
 
         val toggle = ActionBarDrawerToggle(
             this,
@@ -54,7 +52,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         binding.imageButtonCart.setOnClickListener {
-            startActivity(Intent(this@MainActivity, CartActivity::class.java))
+            val intent = Intent(this@MainActivity, CartActivity::class.java)
+            intent.putExtra("userPoints", userPoints)
+            startActivity(intent)
         }
     }
 
@@ -94,8 +94,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.recyclerDeals.adapter = dealsAdapter
     }
 
-    private fun setupPointsMenu(points: String) {
-        binding.pointsButton.run { binding.pointsButton.setText(points) }
+    private fun setupPointsMenu(points: Int) {
+        binding.pointsButton.run { binding.pointsButton.setText(points.toString()) }
     }
 
     private fun setupServices() {
