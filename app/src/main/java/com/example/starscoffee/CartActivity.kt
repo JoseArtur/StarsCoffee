@@ -37,15 +37,24 @@ class CartActivity : AppCompatActivity() {
         setupCartData()
 
         binding.buttonReviewAddress.setOnClickListener {
-            startActivity(
-                Intent(this, CheckoutActivity::class.java)
-                    .putExtra("cartList", ArrayList(cartList))
-                    .putExtra("total", binding.textViewTotal.text.toString())
-                    .putExtra("subTotal", binding.textViewSubTotal.text.toString())
-                    .putExtra("userPoints", tempUserPoints)
-                    .putExtra("voucherTotal", voucherTotal.toString())
-                    .putExtra("vouchersApplied", ArrayList(voucherList))
-            )
+            if(cartList.size == 0){
+                Toast.makeText(
+                    this@CartActivity,
+                    "Cart cannot be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
+                startActivity(
+                    Intent(this, CheckoutActivity::class.java)
+                        .putExtra("cartList", ArrayList(cartList))
+                        .putExtra("total", binding.textViewTotal.text.toString())
+                        .putExtra("subTotal", binding.textViewSubTotal.text.toString())
+                        .putExtra("userPoints", tempUserPoints.toString())
+                        .putExtra("voucherTotal", voucherTotal.toString())
+                        .putExtra("vouchersApplied", ArrayList(voucherList))
+                )
+            }
         }
 
         binding.textViewApplyVoucher.setOnClickListener {

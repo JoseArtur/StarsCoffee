@@ -23,7 +23,7 @@ class VoucherCheckoutAdapter(val context: Context, val list: List<Voucher>) :
         val item = list[holder.adapterPosition]
 
         holder.binding.textViewFoodName.text = item.voucherName
-        holder.binding.textViewFoodPrice.text = "${item.value} €"
+        holder.binding.textViewFoodPrice.text = "- ${item.value} €"
     }
 
     override fun getItemCount(): Int {

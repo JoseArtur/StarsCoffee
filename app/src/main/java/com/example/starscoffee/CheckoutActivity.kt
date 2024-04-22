@@ -19,11 +19,14 @@ class CheckoutActivity : AppCompatActivity() {
     private var selectedChannel: PaymentChannels? = null
     private lateinit var cartList: ArrayList<Foods>
     private lateinit var voucherList: ArrayList<Voucher>
+    private var userPoints = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        userPoints = intent.getStringExtra("userPoints").toString()
+        println("userPoints: $userPoints")
 
         setupCheckoutData()
         setupVoucherList()
@@ -40,6 +43,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         binding.buttonCheckOut.setOnClickListener {
             startActivity(Intent(this, OrderStatusActivity::class.java))
+            
         }
 
     }
@@ -85,7 +89,7 @@ class CheckoutActivity : AppCompatActivity() {
         val voucherAdapter = VoucherCheckoutAdapter(this, voucherList)
         binding.recyclerVouchers.adapter = voucherAdapter
         // Calculate the subtotal and total initially
-        binding.textViewVoucherTotal.text = intent.getStringExtra("voucherTotal") + " €"
+        binding.textViewVoucherTotal.text = "- " + intent.getStringExtra("voucherTotal") + " €"
     }
 
 
