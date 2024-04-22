@@ -29,15 +29,20 @@ public class VoucherRequestEntity {
     private Long id;
 
     @Column
-    private String userId;
-
+    private String pointsRequired;
     @Column
     private String voucherCode;
-
     @Column
-    private Date expiryDate;
-
+    private String name;
     @Column
-    private String pointsRequired;
+    private String description;
+    @Column
+    private int value;
+    @Column
+    private String image;
+    @Column
+    private int restaurant;
+    @Column
+    private String type;
 
 }

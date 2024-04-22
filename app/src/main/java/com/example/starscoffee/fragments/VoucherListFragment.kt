@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.starscoffee.VoucherDetailActivity
 import com.example.starscoffee.adapters.VoucherListAdapter
 import com.example.starscoffee.listeners.ClickListener
-import com.evanemran.quickfoods.models.Vouchers
-import com.evanemran.quickfoods.models.voucherItems
+import com.evanemran.quickfoods.models.Voucher
+import com.evanemran.quickfoods.models.parseJsonToVouchersList
+import com.example.starscoffee.StarsCoffeeAPI
 import com.example.starscoffee.databinding.FragmentVoucherBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class VoucherListFragment : Fragment() {
         private var _binding: FragmentVoucherBinding? = null
@@ -38,10 +40,15 @@ class VoucherListFragment : Fragment() {
                 return binding.root
         }
 
-private fun getVouchersList(): List<Vouchers> = voucherItems
+fun getVouchersList(): List<Voucher> {
+        val api = StarsCoffeeAPI()
+        val v2 = api.getAllVouchers()
+        println("Vouchers3: $v2")
+        return parseJsonToVouchersList(v2)
+}
 
-private val voucherClickListener = object : ClickListener<Vouchers> {
-        override fun onClicked(data: Vouchers) {
+private val voucherClickListener = object : ClickListener<Voucher> {
+        override fun onClicked(data: Voucher) {
                 val gson = Gson()
                 val jsonString = gson.toJson(data)
                 startActivity(Intent(context, VoucherDetailActivity::class.java).putExtra("voucher", jsonString))

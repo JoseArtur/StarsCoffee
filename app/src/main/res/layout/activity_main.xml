@@ -39,9 +39,9 @@
                     <TextView
                         android:id="@+id/textView_location"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text="@string/work"
+                        android:layout_height="match_parent"
+                        android:padding="8sp"
+                        android:text=""
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
                         android:textSize="18sp"

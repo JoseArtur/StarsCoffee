@@ -11,9 +11,14 @@ import lombok.Data;
 public class VoucherRequest implements Serializable {
 
 
-    private String userId;
-    private String voucherCode;
-    private Date expiryDate;
+    private Long id;
     private String pointsRequired;
+    private String voucherCode;
+    private String name;
+    private String description;
+    private int value;
+    private String image;
+    private int restaurant;
+    private String type;
 
 }
