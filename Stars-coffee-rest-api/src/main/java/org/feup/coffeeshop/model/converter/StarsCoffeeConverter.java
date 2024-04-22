@@ -1,9 +1,10 @@
 package org.feup.coffeeshop.model.converter;
 
-import org.feup.coffeeshop.model.dto.AvailableItemsDto;
+import org.feup.coffeeshop.model.dto.FoodsDto;
 import org.feup.coffeeshop.model.dto.PurchaseDto;
 import org.feup.coffeeshop.model.dto.UserDto;
-import org.feup.coffeeshop.model.entity.AvailableItemsRequestEntity;
+import org.feup.coffeeshop.model.dto.VoucherDto;
+import org.feup.coffeeshop.model.entity.FoodsRequestEntity;
 import org.feup.coffeeshop.model.entity.LoginRequestEntity;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.entity.PurchaseRequestEntity;
@@ -28,17 +29,20 @@ public class StarsCoffeeConverter {
         }
     }
 
-    public AvailableItemsDto toAvailableItemsDto(AvailableItemsRequestEntity entity) {
+    public FoodsDto toFoodsDto(FoodsRequestEntity entity) {
         if (entity == null) {
             return null;
         } else {
-            return AvailableItemsDto.builder()
+            return FoodsDto.builder()
                     .id(entity.getId())
-                    .itemName(entity.getItemName())
+                    .foodName(entity.getFoodName())
                     .description(entity.getDescription())
-                    .itemType(entity.getItemType())
                     .price(entity.getPrice())
+                    .itemType(entity.getItemType())
                     .imageUrl(entity.getImageUrl())
+                    .isFavorite(entity.getIsFavorite())
+                    .isAvailable(entity.getIsAvailable())
+                    .quantity(entity.getQuantity())
                     .customizationOptions(entity.getCustomizationOptions())
                     .specialAttributes(entity.getSpecialAttributes())
                     .build();

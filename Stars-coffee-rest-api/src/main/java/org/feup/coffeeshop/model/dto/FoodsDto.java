@@ -10,13 +10,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AvailableItemsDto implements Serializable {
+public class FoodsDto implements Serializable {
     private Long id;
-    private String itemName;
+    private String foodName;
     private String description;
+    private Integer price;
     private String itemType;
-    private String price;
     private String imageUrl;
+    private Integer isFavorite;
+    private Integer isAvailable;
+    private Integer quantity;
     private String customizationOptions;
     private String specialAttributes;
 }

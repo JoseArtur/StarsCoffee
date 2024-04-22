@@ -27,7 +27,7 @@ class CartListAdapter(
 
     override fun onBindViewHolder(holder: CartListViewHolder, position: Int) {
         val item = list[holder.adapterPosition]
-        val imageUrl = item.image_url
+        val imageUrl = item.imageUrl
         Picasso.get().load(imageUrl).into(holder.binding.imageViewFoods)
         holder.binding.textViewFoodName.text = item.foodName
         holder.binding.textViewFoodQuantity.text = "Qty: ${item.quantity}"

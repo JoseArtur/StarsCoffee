@@ -29,7 +29,7 @@ app.get('/home', (req, res) => {
     res.render('home', {success : req.query.success});
 });
 
-app.post('/get-available-items', async (req, res) => {
+app.post('/get-foods', async (req, res) => {
     try {
         // Basic Authentication credentials
         const username = 'user';
@@ -43,15 +43,15 @@ app.post('/get-available-items', async (req, res) => {
             'Authorization': authHeader
         };
 
-        // Make request to fetch available items
-        const response = await axios.get('http://localhost:8090/coffee-shop/get-available-items', { headers });
+        // Make request to fetch foods
+        const response = await axios.get('http://localhost:8090/coffee-shop/get-foods', { headers });
 
-        // Send the available items in the response
+        // Send the foods in the response
         res.json(response.data);
     } catch (error) {
         // Handle errors
-        console.error('Error fetching available items:', error);
-        res.status(error.response.status || 500).send(error.response.data || 'Error fetching available items');
+        console.error('Error fetching foods:', error);
+        res.status(error.response.status || 500).send(error.response.data || 'Error fetching foods');
     }
 });
 
