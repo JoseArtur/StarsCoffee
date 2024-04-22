@@ -12,7 +12,7 @@ data class Foods(
     val id: Int,
     var foodName: String,
     var description: String,
-    var price: Int,
+    var price: Double,
     var itemType: String,
     @SerializedName("image_url")
     var imageUrl: String,

@@ -9,7 +9,7 @@ import lombok.Data;
 public class FoodsRequest implements Serializable {
     private String foodName;
     private String description;
-    private Integer price;
+    private Double price;
     private String itemType;
     private String imageUrl;
     private Integer isFavorite;

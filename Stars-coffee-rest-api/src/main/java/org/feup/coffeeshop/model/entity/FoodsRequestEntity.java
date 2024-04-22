@@ -36,7 +36,7 @@ public class FoodsRequestEntity {
     private String description;
 
     @Column
-    private int price;
+    private Double price;
 
     @Column
     private String itemType;

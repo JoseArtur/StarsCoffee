@@ -1,8 +1,8 @@
 package com.example.starscoffee.models
 
-class AddOns(id: Int, title: String, price: Int, isChecked: Boolean) {
+class AddOns(id: Int, title: String, price: Double, isChecked: Boolean) {
     var addOnId: Int = id
-    var addOnPrice: Int = price
+    var addOnPrice: Double = price
     var addOnName: String = title
     var addOnChecked: Boolean = isChecked
 }

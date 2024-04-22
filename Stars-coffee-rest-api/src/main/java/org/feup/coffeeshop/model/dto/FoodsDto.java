@@ -14,7 +14,7 @@ public class FoodsDto implements Serializable {
     private Long id;
     private String foodName;
     private String description;
-    private Integer price;
+    private Double price;
     private String itemType;
     private String imageUrl;
     private Integer isFavorite;
