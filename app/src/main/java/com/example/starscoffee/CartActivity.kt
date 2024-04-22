@@ -93,6 +93,7 @@ class CartActivity : AppCompatActivity() {
 
     // Function to calculate the total
     fun calcutateTotal() {
+        
         val total = cartList.sumOf { it.price * it.quantity }
         val textViewTotal = findViewById<TextView>(R.id.textView_total)
         textViewTotal.text = getString(R.string.total_price, total)
