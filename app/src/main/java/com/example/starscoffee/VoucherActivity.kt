@@ -13,6 +13,7 @@ class VoucherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVoucherBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val api = StarsCoffeeAPI()
 
         getCategory()
     }

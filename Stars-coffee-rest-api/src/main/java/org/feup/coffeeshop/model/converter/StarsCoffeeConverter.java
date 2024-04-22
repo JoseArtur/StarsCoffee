@@ -8,8 +8,10 @@ import org.feup.coffeeshop.model.entity.FoodsRequestEntity;
 import org.feup.coffeeshop.model.entity.LoginRequestEntity;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.entity.PurchaseRequestEntity;
+import org.feup.coffeeshop.model.entity.VoucherRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.request.PurchaseRequest;
+import org.feup.coffeeshop.model.request.VoucherRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,6 +39,7 @@ public class StarsCoffeeConverter {
                     .id(entity.getId())
                     .foodName(entity.getFoodName())
                     .description(entity.getDescription())
+                    .itemType(entity.getItemType())
                     .price(entity.getPrice())
                     .itemType(entity.getItemType())
                     .imageUrl(entity.getImageUrl())
@@ -71,6 +74,24 @@ public class StarsCoffeeConverter {
                     .itemId(entity.getItemId())
                     .purchaseDate(entity.getPurchaseDate())
                     .quantity(entity.getQuantity())
+                    .build();
+        }
+    }
+
+    public VoucherDto toVoucherDto(VoucherRequestEntity entity) {
+        if (entity == null) {
+            return null;
+        } else {
+            return VoucherDto.builder()
+                    .id(entity.getId())
+                    .pointsRequired(entity.getPointsRequired())
+                    .voucherCode(entity.getVoucherCode())
+                    .name(entity.getName())
+                    .description(entity.getDescription())
+                    .value(entity.getValue())
+                    .image(entity.getImage())
+                    .restaurant(entity.getRestaurant())
+                    .type(entity.getType())
                     .build();
         }
     }

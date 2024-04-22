@@ -58,7 +58,6 @@ class StarsCoffeeAPI {
         val client = OkHttpClient()
         return try {
             val response: Response = client.newCall(request).execute()
-            println(response)
             if (response.isSuccessful) {
                 response.body()?.string()
             } else {
