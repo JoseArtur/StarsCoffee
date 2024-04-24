@@ -103,32 +103,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp" />
-
                 <LinearLayout
-                    android:id="@+id/layout_deals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:padding="8dp"
-                        android:text="Your Daily Deals: "
-                        android:textAlignment="textStart"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:background="@android:color/white"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/accentColor"
+                        app:tabIndicatorHeight="2dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="@color/accentColor"
+                        app:tabTextAppearance="@style/tab_text"
+                        app:tabTextColor="@color/black" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_deals"
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp" />
+                        android:layout_height="700dp"
+                        android:background="@android:color/transparent"
+                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
                 </LinearLayout>
-
 
             </LinearLayout>
         </ScrollView>
