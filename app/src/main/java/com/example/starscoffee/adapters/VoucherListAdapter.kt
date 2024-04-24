@@ -2,19 +2,18 @@ package com.example.starscoffee.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.evanemran.quickfoods.models.Vouchers
+import com.evanemran.quickfoods.models.Voucher
 import com.example.starscoffee.databinding.ListVoucherBinding
 import com.example.starscoffee.listeners.ClickListener
 import com.squareup.picasso.Picasso
 
 
-class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val listener: ClickListener<Vouchers>)
+class VoucherListAdapter (val context: Context, val list: List<Voucher>, val listener: ClickListener<Voucher>)
     : RecyclerView.Adapter<VoucherListViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,6 +27,7 @@ class VoucherListAdapter (val context: Context, val list: List<Vouchers>, val li
         Picasso.get().load(item.image_url).into(holder.imageView_vouchers)
         holder.textView_voucherName.setText(item.voucherName)
         holder.textView_voucherInfo.setText(item.description)
+        holder.textView_voucherPrice.setText(item.pointsRequired.toString() + " points")
 
 
         holder.voucherList_container.setOnClickListener {

@@ -38,7 +38,7 @@ class StarsCoffeeAPI {
             .url(url)
             .build()
 
-        var v2 = ""
+        var foodsString = ""
         val foodsDeferred = GlobalScope.async(Dispatchers.IO) {
             callRequest(request)
         }
@@ -46,12 +46,11 @@ class StarsCoffeeAPI {
         runBlocking {
             // Wait for the result and access the list of vouchers
             val foods = foodsDeferred.await()
-            v2 = foods.toString()
+            foodsString = foods.toString()
             // Process the list of vouchers as needed
             println("Foods: $foods")
         }
-        return v2
-
+        return foodsString
     }
 
     suspend fun callRequest(request: Request): String? {
