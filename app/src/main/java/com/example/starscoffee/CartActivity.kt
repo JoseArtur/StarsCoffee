@@ -114,12 +114,16 @@ class CartActivity : AppCompatActivity() {
                 // Calculate the new subtotal after applying the coupon
                 voucherTotal += data.value
                 var total = cartList.sumOf { it.price * it.quantity }
+                println(total)
                 if (voucherTotal > total) {
-                    voucherTotal = total
-                    total = 0
+                    voucherTotal = total.toInt()
+                    total = 0.0
+                    println("total: 0")
                 }
                 else {
-                    total -= voucherTotal
+                    println(voucherTotal)
+                    println("total: " +  { total })
+                    total = total - voucherTotal
                 }
                 tempUserPoints -= data.pointsRequired
                 setupPointsMenu(tempUserPoints)
