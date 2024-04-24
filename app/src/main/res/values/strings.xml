@@ -4,6 +4,6 @@
     <string name="close_nav_drawer">Close Drawer</string>
     <string name="work">Work</string>
     <string name="cart">Cart</string>
-    <string name="total_price">%1$d €</string>
-    <string name="subtotal_price">%1$d €</string>
+    <string name="total_price">%1$.2f €</string>
+    <string name="subtotal_price">%1$.2f €</string>
 </resources>

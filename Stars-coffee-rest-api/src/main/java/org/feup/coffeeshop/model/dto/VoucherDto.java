@@ -17,7 +17,7 @@ public class VoucherDto implements Serializable {
     private String voucherCode;
     private String name;
     private String description;
-    private int value;
+    private Double value;
     private String image;
     private int restaurant;
     private String type;

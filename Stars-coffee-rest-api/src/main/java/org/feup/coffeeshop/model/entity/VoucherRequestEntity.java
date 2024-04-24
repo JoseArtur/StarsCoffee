@@ -37,7 +37,7 @@ public class VoucherRequestEntity {
     @Column
     private String description;
     @Column
-    private int value;
+    private Double value;
     @Column
     private String image;
     @Column

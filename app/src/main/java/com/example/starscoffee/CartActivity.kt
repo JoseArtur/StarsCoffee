@@ -18,7 +18,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     var tempUserPoints = 0
     var permUserPoints = 0
-    var voucherTotal = 0
+    var voucherTotal = 0.0
     var voucherList: MutableList<Voucher> = mutableListOf()
 
     companion object {
@@ -112,18 +112,15 @@ class CartActivity : AppCompatActivity() {
                 ).show()
 
                 // Calculate the new subtotal after applying the coupon
-                voucherTotal += data.value
+                voucherTotal = data.value
                 var total = cartList.sumOf { it.price * it.quantity }
                 println(total)
                 if (voucherTotal > total) {
-                    voucherTotal = total.toInt()
+                    voucherTotal = total
                     total = 0.0
-                    println("total: 0")
                 }
                 else {
-                    println(voucherTotal)
-                    println("total: " +  { total })
-                    total = total - voucherTotal
+                    total -= voucherTotal
                 }
                 tempUserPoints -= data.pointsRequired
                 setupPointsMenu(tempUserPoints)
