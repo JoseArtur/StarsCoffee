@@ -1,16 +1,15 @@
 package com.example.starscoffee
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.starscoffee.databinding.ActivityFoodDetailBinding
-import com.example.starscoffee.listeners.ClickListener
-import com.example.starscoffee.models.AddOns
 import com.example.starscoffee.models.Foods
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 
 class FoodDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFoodDetailBinding
@@ -25,6 +24,10 @@ class FoodDetailActivity : AppCompatActivity() {
 
         val textViewFoodName = findViewById<TextView>(R.id.textView_foodName)
         textViewFoodName.text = food.foodName
+
+        val imageViewFoodImage = findViewById<ImageView>(R.id.imageView_foodImage)
+        Picasso.get().load(food.imageUrl).into(imageViewFoodImage)
+
         // set the "@+id/textView_foodPrice" also
         val textViewFoodPrice = findViewById<TextView>(R.id.textView_foodPrice)
         textViewFoodPrice.text = food.price.toString()

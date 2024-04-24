@@ -27,6 +27,7 @@ class FoodListAdapter(
         Picasso.get().load(item.imageUrl).into(holder.binding.imageViewFoods)
         holder.binding.textViewFoodName.text = item.foodName
         holder.binding.textViewFoodInfo.text = item.description
+        holder.binding.textViewFoodPrice.text = item.price.toString()
 
         holder.binding.foodListContainer.setOnClickListener {
             listener.onClicked(item)

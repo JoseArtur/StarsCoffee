@@ -16,7 +16,7 @@ data class Voucher (
     var description: String,
     @SerializedName("value")
     var value: Double,
-    @SerializedName("image_url")
+    @SerializedName("image")
     var image_url: String,
     @SerializedName("type")
     var type: String,

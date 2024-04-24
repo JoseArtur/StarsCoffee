@@ -41,7 +41,7 @@ public class FoodsRequestEntity {
     @Column
     private String itemType;
 
-    @Column(name = "image_url")
+    @Column
     private String imageUrl;
 
     @Column

@@ -1,7 +1,6 @@
 package com.example.starscoffee.models
 
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class FoodsResponse(
@@ -14,7 +13,6 @@ data class Foods(
     var description: String,
     var price: Double,
     var itemType: String,
-    @SerializedName("image_url")
     var imageUrl: String,
     var isFavorite: Int = 0,
     var isAvailable: Int = 1,

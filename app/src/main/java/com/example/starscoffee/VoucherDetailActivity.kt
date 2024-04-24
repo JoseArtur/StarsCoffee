@@ -23,6 +23,7 @@ class VoucherDetailActivity : AppCompatActivity() {
     private fun setupVoucher(voucher: Voucher) {
 
         // Update the text property of the TextView
+        println(voucher.image_url)
         binding.textViewVoucherNameDetail.text = voucher.voucherName
         binding.textViewVoucherInfo.text = voucher.description
         binding.textViewVoucherPrice.text = voucher.pointsRequired.toString() + " points"
