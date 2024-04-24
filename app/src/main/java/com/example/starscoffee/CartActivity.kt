@@ -93,6 +93,7 @@ class CartActivity : AppCompatActivity() {
         val subTotal = cartList.sumOf { it.price * it.quantity }
         val textViewSubTotal = findViewById<TextView>(R.id.textView_subTotal)
         textViewSubTotal.text = subTotal.toString()
+    // textViewSubTotal.text = subTotal.toString()
     }
 
     private val cartClickListener: ClickListener<Foods> = object :

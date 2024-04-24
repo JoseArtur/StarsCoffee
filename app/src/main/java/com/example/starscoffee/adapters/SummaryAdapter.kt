@@ -22,7 +22,12 @@ class SummaryAdapter(val context: Context, val list: List<Foods>) :
         val item = list[holder.adapterPosition]
 
         holder.binding.textViewFoodName.text = item.foodName
-        holder.binding.textViewFoodPrice.text = "${item.price} €"
+        if (item.quantity > 1) {
+            holder.binding.textViewFoodPrice.text = "${item.quantity} x ${item.price} €"
+        } else {
+            holder.binding.textViewFoodPrice.text = "${item.price} €"
+        }
+
     }
 
     override fun getItemCount(): Int {

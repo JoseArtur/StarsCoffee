@@ -2,6 +2,8 @@ package com.example.starscoffee
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,7 +91,14 @@ class CheckoutActivity : AppCompatActivity() {
         val voucherAdapter = VoucherCheckoutAdapter(this, voucherList)
         binding.recyclerVouchers.adapter = voucherAdapter
         // Calculate the subtotal and total initially
-        binding.textViewVoucherTotal.text = "- " + intent.getStringExtra("voucherTotal") + " €"
+        println(intent.getStringExtra("voucherTotal"))
+        if (intent.getStringExtra("voucherTotal")== "0.0") {
+            val linearLayout = findViewById<LinearLayout>(R.id.linear_layout)
+            linearLayout.visibility = View.GONE
+
+        } else {
+            binding.textViewVoucherTotal.text = "- " + intent.getStringExtra("voucherTotal") + " €"
+        }
     }
 
 
