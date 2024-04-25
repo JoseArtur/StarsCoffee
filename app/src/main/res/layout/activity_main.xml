@@ -68,7 +68,7 @@
                     android:layout_toStartOf="@+id/imageButton_cart"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_love" />
+                    android:src="@drawable/ic_voucher" />
 
                 <Button
                     android:id="@+id/pointsButton"

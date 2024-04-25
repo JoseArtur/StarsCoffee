@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setupNavMenu() {
         val navMenus: MutableList<DrawerMenu> = mutableListOf()
-        navMenus.add(DrawerMenu.FAVORITES)
+        //navMenus.add(DrawerMenu.FAVORITES)
         navMenus.add(DrawerMenu.ORDER_REORDER)
         navMenus.add(DrawerMenu.VOUCHERS)
         navMenus.add(DrawerMenu.LOGOUT)
