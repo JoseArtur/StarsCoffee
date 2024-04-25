@@ -123,6 +123,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         val intent = Intent(this@MainActivity, VoucherActivity::class.java)
                         startActivity(intent)
                     }
+                    DrawerMenu.LOGOUT -> {
+
+                        // Start OrderHistoryActivity when ORDER_REORDER is clicked
+
+                        val intent = Intent(this@MainActivity, SignupActivity::class.java)
+                        startActivity(intent)
+                    }
 
                     else -> {
                         Toast.makeText(

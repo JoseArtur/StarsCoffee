@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-import com.example.starscoffee.databinding.ActivitySignupBinding
+import com.example.starscoffee.databinding.ActivitySigninBinding
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType
@@ -15,20 +15,17 @@ import okhttp3.RequestBody
 import okhttp3.Response
 import java.io.IOException
 
-class SignupActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignupBinding
+class SigninActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySigninBinding
     private val client = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonSignup.setOnClickListener {
+        binding.buttonSignin.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
-            val nif = binding.editTextNif.text.toString()
-            val number = binding.editTextNumber.text.toString()
-            val confirmPassword = binding.editTextConfirmPassword.text.toString()
             val password = binding.editTextPassword.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
@@ -39,7 +36,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
     private fun login(email: String, password: String) {
-        val url = "http://172.24.155.55:8090/coffee-shop/login"
+        val url = "http://10.0.2.2:8090/coffee-shop/login"
         val json = "{\"email\":\"$email\", \"password\":\"$password\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
 
@@ -54,19 +51,19 @@ class SignupActivity : AppCompatActivity() {
                 println("test error login message: ")
                 println(response.code())
                 if (response.isSuccessful) {
-                    val intent = Intent(this@SignupActivity, MainActivity::class.java)
+                    val intent = Intent(this@SigninActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@SignupActivity, "Login failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SigninActivity, "Login failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    Toast.makeText(this@SignupActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SigninActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         })
