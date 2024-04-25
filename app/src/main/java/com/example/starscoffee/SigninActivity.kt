@@ -1,5 +1,6 @@
 package com.example.starscoffee
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -13,6 +14,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
+import org.json.JSONObject
 import java.io.IOException
 
 class SigninActivity : AppCompatActivity() {
@@ -34,9 +36,13 @@ class SigninActivity : AppCompatActivity() {
             }
             login(email, password)
         }
+        binding.textViewSignup.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun login(email: String, password: String) {
-        val url = "http://10.0.2.2:8090/coffee-shop/login"
+        val url = "http://172.24.155.55:8090/coffee-shop/login"
         val json = "{\"email\":\"$email\", \"password\":\"$password\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
 
@@ -51,9 +57,47 @@ class SigninActivity : AppCompatActivity() {
                 println("test error login message: ")
                 println(response.code())
                 if (response.isSuccessful) {
-                    val intent = Intent(this@SigninActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+// Call /customer-by-email/{email} to get the user data
+                    val customerUrl = "http://172.24.155.55:8090/coffee-shop/customer-by-email/$email"
+                    val customerRequest = Request.Builder()
+                        .url(customerUrl)
+                        .build()
+
+                    client.newCall(customerRequest).enqueue(object : Callback {
+                        override fun onResponse(call: Call, response: Response) {
+                            if (response.isSuccessful) {
+                                // Parse the JSON response to get the user info
+                                val userInfoJson = response.body()?.string()
+                                val jsonObject = JSONObject(userInfoJson)
+                                val customersArray = jsonObject.getJSONArray("customers")
+                                val userInfo = customersArray.getJSONObject(0)
+
+                                val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+
+                                val editor = sharedPreferences.edit()
+                                editor.putString("name", userInfo.getString("name"))
+                                editor.putString("nif", userInfo.getString("nif"))
+                                editor.putString("telephone", userInfo.getString("telephone"))
+                                editor.putString("email", userInfo.getString("email"))
+                                editor.putInt("points", userInfo.getInt("points"))
+                                editor.apply()
+
+                                val intent = Intent(this@SigninActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                runOnUiThread {
+                                    Toast.makeText(this@SigninActivity, "Failed to get user data", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call, e: IOException) {
+                            runOnUiThread {
+                                Toast.makeText(this@SigninActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
                 } else {
                     runOnUiThread {
                         Toast.makeText(this@SigninActivity, "Login failed", Toast.LENGTH_SHORT).show()
@@ -67,6 +111,4 @@ class SigninActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-}
+    }}

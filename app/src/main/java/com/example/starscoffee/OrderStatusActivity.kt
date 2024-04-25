@@ -17,12 +17,13 @@ class OrderStatusActivity : AppCompatActivity() {
         binding = ActivityOrderStatusBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val orderInfoJson = intent.getStringExtra("orderInfo")
-
+        val orderInfoJson = intent.getByteArrayExtra("orderInfo")
+             val tmsp  = java.lang.String(orderInfoJson, Charsets.UTF_8).toString()
+        println("Order Info: $tmsp")
         // Generate QR code from the JSON string
         val writer = QRCodeWriter()
         try {
-            val bitMatrix = writer.encode(orderInfoJson, BarcodeFormat.QR_CODE, 512, 512)
+            val bitMatrix = writer.encode(java.lang.String(orderInfoJson, Charsets.UTF_8).toString(), BarcodeFormat.QR_CODE, 512, 512)
             val width = bitMatrix.width
             val height = bitMatrix.height
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)

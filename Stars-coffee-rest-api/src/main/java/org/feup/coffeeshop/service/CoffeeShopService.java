@@ -9,13 +9,19 @@ import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
 import org.feup.coffeeshop.model.response.PurchaseListResponse;
 import org.feup.coffeeshop.model.response.VoucherListResponse;
+import org.feup.coffeeshop.model.request.VoucherRequest;
 
 public interface CoffeeShopService {
     OrderListResponse getCustomer(Long id);
 
+    OrderListResponse getCustomerByEmail(String email);
     OrderListResponse getAllCustomers();
 
     VoucherListResponse getAllVouchers(String userId);
+
+    VoucherListResponse getVoucher(Long id);
+
+    VoucherListResponse addVoucher(VoucherRequest request);
 
     UserDto createCustomer(OrderRequest request);
 

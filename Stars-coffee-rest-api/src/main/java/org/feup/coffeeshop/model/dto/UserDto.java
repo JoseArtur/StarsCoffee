@@ -18,4 +18,5 @@ public class UserDto implements Serializable {
     private String telephone;
     private String email;
     private String password;
+    private Long points;
 }

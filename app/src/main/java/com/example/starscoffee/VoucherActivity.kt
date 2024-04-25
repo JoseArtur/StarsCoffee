@@ -31,7 +31,7 @@ class VoucherActivity : AppCompatActivity() {
 
 
         for (item in list){
-            val fragment = VoucherListFragment()
+            val fragment = VoucherListFragment(this)
             viewPagerAdapter!!.addFragment(fragment, item)
         }
 

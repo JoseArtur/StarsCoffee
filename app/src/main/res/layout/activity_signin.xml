@@ -97,11 +97,11 @@
                 android:layout_height="10dp" />
 
             <TextView
-                android:id="@+id/textView_login"
+                android:id="@+id/textView_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Already have an account? Login"
+                android:text="Sign Up"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold" />

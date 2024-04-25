@@ -1,5 +1,6 @@
 package com.example.starscoffee.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +20,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class VoucherListFragment : Fragment() {
+class VoucherListFragment(private val context: Context) : Fragment() {
         private var _binding: FragmentVoucherBinding? = null
         private val binding get() = _binding!!
 
@@ -33,18 +34,23 @@ class VoucherListFragment : Fragment() {
                         binding.recyclerVouchers.apply {
                                 setHasFixedSize(true)
                                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                                adapter = VoucherListAdapter(context, voucherList, voucherClickListener)
+                                adapter = voucherList?.let {
+                                        VoucherListAdapter(context,
+                                                it, voucherClickListener)
+                                }
                         }
                 }
 
                 return binding.root
         }
 
-fun getVouchersList(): List<Voucher> {
+fun getVouchersList(): List<Voucher>? {
+        val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "")
         val api = StarsCoffeeAPI()
-        val v2 = api.getAllVouchers()
+        val v2 = email?.let { api.getAllVouchers(it) }
         println("Vouchers3: $v2")
-        return parseJsonToVouchersList(v2)
+        return v2?.let { parseJsonToVouchersList(it) }
 }
 
 private val voucherClickListener = object : ClickListener<Voucher> {

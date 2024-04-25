@@ -27,6 +27,7 @@ public class StarsCoffeeConverter {
                     .telephone(entity.getTelephone())
                     .password(entity.getPassword())
                     .email(entity.getEmail())
+                    .points(entity.getPoints())
                     .build();
         }
     }
@@ -83,6 +84,7 @@ public class StarsCoffeeConverter {
         } else {
             return VoucherDto.builder()
                     .id(entity.getId())
+                    .userId(entity.getUserId())
                     .pointsRequired(entity.getPointsRequired())
                     .voucherCode(entity.getVoucherCode())
                     .name(entity.getName())
@@ -105,6 +107,7 @@ public class StarsCoffeeConverter {
                     .telephone(request.getTelephone())
                     .password(request.getPassword())
                     .email(request.getEmail())
+                    .points(request.getPoints())
                     .build();
         }
     }
@@ -122,4 +125,21 @@ public class StarsCoffeeConverter {
         }
     }
 
+    public VoucherRequestEntity toVoucherEntity(VoucherRequest request) {
+        if (request == null) {
+            return null;
+        } else {
+            return VoucherRequestEntity.builder()
+                    .userId(request.getUserId())
+                    .pointsRequired(request.getPointsRequired())
+                    .voucherCode(request.getVoucherCode())
+                    .name(request.getName())
+                    .description(request.getDescription())
+                    .value(request.getValue())
+                    .image(request.getImage())
+                    .restaurant(request.getRestaurant())
+                    .type(request.getType())
+                    .build();
+        }
+    }
 }

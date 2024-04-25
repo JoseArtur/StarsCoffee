@@ -16,6 +16,9 @@ import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Foods
 import com.example.starscoffee.models.PaymentChannels
 import com.google.gson.Gson
+import java.io.ByteArrayOutputStream
+import java.io.DataOutputStream
+import java.nio.ByteBuffer
 
 
 data class OrderInfo(
@@ -62,9 +65,14 @@ class CheckoutActivity : AppCompatActivity() {
             )
 
             val orderInfoJson = Gson().toJson(orderInfo)
+println("Order Info: $orderInfoJson")
+            val byteArray = orderInfoJson.toByteArray(Charsets.UTF_8)
+           println("Order Info: $byteArray")
+            val jsonString = String(byteArray, Charsets.UTF_8)
+            println("Order Info: $jsonString")
 
             val intent = Intent(this, OrderStatusActivity::class.java)
-            intent.putExtra("orderInfo", orderInfoJson)
+            intent.putExtra("orderInfo", byteArray)
             startActivity(intent)
         }
 

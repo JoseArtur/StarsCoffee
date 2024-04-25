@@ -13,6 +13,7 @@ import org.feup.coffeeshop.model.converter.StarsCoffeeConverter;
 import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.dto.VoucherDto;
 import org.feup.coffeeshop.model.entity.VoucherRequestEntity;
+import org.feup.coffeeshop.model.request.VoucherRequest;
 import org.feup.coffeeshop.repository.VoucherRepository;
 import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
@@ -63,6 +64,11 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     }
 
     @Override
+    public OrderListResponse getCustomerByEmail(String email) {
+        final OrderRequestEntity entities = repository.findByEmail(email);
+        return OrderListResponse.builder().customers(Collections.singletonList(starsCoffeeConverter.toDto(entities))).build();
+    }
+    @Override
     public OrderListResponse getAllCustomers() {
         final List<OrderRequestEntity> entities = repository.findAll();
 
@@ -78,14 +84,29 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     @Override
     public VoucherListResponse getAllVouchers(String userId) {
         final List<VoucherRequestEntity> entities = voucherRepository.findByUserId(userId);
-
+        // print here the entities
+        System.out.println(entities);
         final List<VoucherDto> converted = entities
                 .stream()
                 .map(starsCoffeeConverter::toVoucherDto)
                 .collect(Collectors.toList());
-
+        System.out.println(converted);
         return VoucherListResponse.builder().vouchers(converted).build();
 
+    }
+
+    @Override
+    public VoucherListResponse getVoucher(Long id) {
+        final VoucherListResponse response = new VoucherListResponse();
+        return voucherRepository.findById(id)
+                .map(entity -> VoucherListResponse.builder().vouchers(Collections.singletonList(starsCoffeeConverter.toVoucherDto(entity))).build())
+                .orElse(response);
+    }
+
+    @Override
+    public VoucherListResponse addVoucher(VoucherRequest request) {
+        final VoucherRequestEntity saved = voucherRepository.save(starsCoffeeConverter.toVoucherEntity(request));
+        return VoucherListResponse.builder().vouchers(Collections.singletonList(starsCoffeeConverter.toVoucherDto(saved))).build();
     }
 
     @Override
@@ -111,18 +132,21 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     }
 
     @Override
-    public UserDto updateCustomer(Long id, OrderRequest request) {
-        final Optional<OrderRequestEntity> optionalCustomerEntity = repository.findById(id);
-        if (!optionalCustomerEntity.isPresent()) {
-            return null;
-        } else {
-            final OrderRequestEntity toBeUpdated = starsCoffeeConverter.toEntity(request);
-            toBeUpdated.setId(optionalCustomerEntity.get().getId());
-            final OrderRequestEntity saved = repository.save(toBeUpdated);
-            return starsCoffeeConverter.toDto(saved);
-        }
-
+public UserDto updateCustomer(Long id, OrderRequest request) {
+    System.out.println("Updating customer with id: " + id);
+    
+    final Optional<OrderRequestEntity> optionalCustomerEntity = repository.findById(id);
+    if (!optionalCustomerEntity.isPresent()) {
+        System.out.println("Customer with id: " + id + " not found.");
+        return null;
+    } else {
+        final OrderRequestEntity toBeUpdated = starsCoffeeConverter.toEntity(request);
+        toBeUpdated.setId(optionalCustomerEntity.get().getId());
+        final OrderRequestEntity saved = repository.save(toBeUpdated);
+        System.out.println("Customer with id: " + id + " updated successfully.");
+        return starsCoffeeConverter.toDto(saved);
     }
+}
 
     @Override
     public OrderDeleteResponse deleteCustomer(Long id) {

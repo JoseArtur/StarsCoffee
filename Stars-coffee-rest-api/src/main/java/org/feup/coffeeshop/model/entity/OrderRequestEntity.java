@@ -39,6 +39,9 @@ public class OrderRequestEntity {
     private String password;
 
     @Column
+    private Long points;
+
+    @Column
     private boolean deleted = Boolean.FALSE;
 
 }

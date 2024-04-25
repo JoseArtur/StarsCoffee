@@ -13,6 +13,7 @@ public class VoucherRequest implements Serializable {
 
     private Long id;
     private String pointsRequired;
+    private String userId;
     private String voucherCode;
     private String name;
     private String description;

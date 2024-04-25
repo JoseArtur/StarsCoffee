@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VoucherRepository extends JpaRepository<VoucherRequestEntity, Long> {
-    List<VoucherRequestEntity> findByUserId(String userId);
+    @Query("SELECT v FROM VoucherRequestEntity v WHERE v.userId = :userId")
+    List<VoucherRequestEntity> findByUserId(@Param("userId") String userId);
 }

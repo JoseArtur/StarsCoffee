@@ -1,5 +1,6 @@
 package com.example.starscoffee.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,11 +42,31 @@ class FoodListFragment : Fragment() {
         return binding.root
     }
 
+    private fun storeFoodList(foodList: String) {
+        val sharedPreferences = requireActivity().getSharedPreferences("FoodPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("foodList", foodList)
+        editor.apply()
+    }
     private fun getFoodList(): List<Foods> {
+        val storedFoodList = getStoredFoodList()
+        if (storedFoodList.isNotEmpty()) {
+            return storedFoodList
+        }
+
         val api = StarsCoffeeAPI()
         val foods = api.getAllFoods()
+        storeFoodList(foods)
+
         return parseJsonToFoodsList(foods)
     }
+
+    private fun getStoredFoodList(): List<Foods> {
+        val sharedPreferences = requireActivity().getSharedPreferences("FoodPrefs", Context.MODE_PRIVATE)
+        val foodListJson = sharedPreferences.getString("foodList", "") ?: ""
+        return if (foodListJson.isNotEmpty()) parseJsonToFoodsList(foodListJson) else emptyList()
+    }
+
 
     private val foodClickListener = object : ClickListener<Foods> {
         override fun onClicked(data: Foods) {

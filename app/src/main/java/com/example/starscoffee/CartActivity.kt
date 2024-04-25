@@ -1,5 +1,6 @@
 package com.example.starscoffee
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
@@ -59,9 +60,14 @@ class CartActivity : AppCompatActivity() {
 
         binding.textViewApplyVoucher.setOnClickListener {
             val api = StarsCoffeeAPI()
-            val voucherList = parseJsonToVouchersList(api.getAllVouchers())
-            val voucherDialog = VoucherDialog(voucherList, voucherClickListener)
-            voucherDialog.show(supportFragmentManager, "payment")
+            val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            val email = sharedPreferences.getString("email", "")
+            val voucherList = email?.let { it1 -> api.getAllVouchers(it1) }
+                ?.let { it2 -> parseJsonToVouchersList(it2) }
+            val voucherDialog = voucherList?.let { it1 -> VoucherDialog(it1, voucherClickListener) }
+            if (voucherDialog != null) {
+                voucherDialog.show(supportFragmentManager, "payment")
+            }
         }
     }
 
@@ -105,7 +111,7 @@ class CartActivity : AppCompatActivity() {
     private val voucherClickListener: ClickListener<Voucher> = object :
         ClickListener<Voucher> {
         override fun onClicked(data: Voucher) {
-            if(tempUserPoints >= data.pointsRequired) {
+            //if(tempUserPoints >= data.pointsRequired) {
                 Toast.makeText(
                     this@CartActivity,
                     data.voucherName + " voucher applied",
@@ -115,7 +121,7 @@ class CartActivity : AppCompatActivity() {
                 // Calculate the new subtotal after applying the coupon
                 voucherTotal = data.value
                 var total = cartList.sumOf { it.price * it.quantity }
-                println(total)
+                  println(total)
                 if (voucherTotal > total) {
                     voucherTotal = total
                     total = 0.0
@@ -128,14 +134,14 @@ class CartActivity : AppCompatActivity() {
                 val textViewTotal = findViewById<TextView>(R.id.textView_total)
                 textViewTotal.text = getString(R.string.total_price, total)
                 voucherList.add(data)
-            }
-            else{
-                Toast.makeText(
-                    this@CartActivity,
-                    "You do not have enough points to apply this voucher",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+          //  }
+            // else{
+               //  Toast.makeText(
+               //      this@CartActivity,
+               //     "You do not have enough points to apply this voucher",
+               //     Toast.LENGTH_SHORT
+               // ).show()
+          //  }
         }
     }
 }

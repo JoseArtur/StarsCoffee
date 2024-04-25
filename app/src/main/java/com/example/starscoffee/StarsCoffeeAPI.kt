@@ -9,11 +9,19 @@ import kotlinx.coroutines.runBlocking
 
 class StarsCoffeeAPI {
     var resp : String = ""
-    fun getAllVouchers(): String {
-        val url = "http://172.24.155.55:8090/coffee-shop/get-all-vouchers"
+
+    fun getAllVouchers(userId: String): String {
+        val httpUrl = HttpUrl.Builder()
+            .scheme("http")
+            .host("172.24.155.55")
+            .port(8090)
+            .addPathSegment("coffee-shop")
+            .addPathSegment("get-all-vouchers")
+            .addQueryParameter("userId", userId)
+            .build()
 
         val request = Request.Builder()
-            .url(url)
+            .url(httpUrl)
             .build()
 
         var v2 = ""

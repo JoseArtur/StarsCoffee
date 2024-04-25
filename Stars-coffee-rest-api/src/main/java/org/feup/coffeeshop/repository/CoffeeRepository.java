@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CoffeeRepository extends JpaRepository<OrderRequestEntity, Long> {
-
+    @Query("SELECT DISTINCT s FROM OrderRequestEntity s WHERE s.email = :email")
+    OrderRequestEntity findByEmail(@Param("email") String email);
 }

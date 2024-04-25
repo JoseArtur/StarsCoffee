@@ -4,6 +4,7 @@ import org.feup.coffeeshop.model.dto.PurchaseDto;
 import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.request.PurchaseRequest;
+import org.feup.coffeeshop.model.request.VoucherRequest;
 import org.feup.coffeeshop.model.response.FoodsListResponse;
 import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
@@ -34,6 +35,17 @@ public class StarsCoffeeController {
         }
 
     }
+    @GetMapping("/customer-by-email/{email}")
+    public ResponseEntity<OrderListResponse> getCustomerByEmail(@PathVariable("email") String email) {
+        OrderListResponse response = coffeeShopService.getCustomerByEmail(email);
+
+        if (CollectionUtils.isEmpty(response.getCustomers())) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+    }
 
     @GetMapping("/get-all-customers")
     public ResponseEntity<OrderListResponse> getAllCustomers() {
@@ -52,6 +64,17 @@ public class StarsCoffeeController {
         VoucherListResponse response = coffeeShopService.getAllVouchers(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/get-voucher/{id}")
+    public ResponseEntity<VoucherListResponse> getVoucher(@PathVariable("id") Long id) {
+        VoucherListResponse response = coffeeShopService.getVoucher(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @PostMapping("/add-voucher")
+    public ResponseEntity<VoucherListResponse> addVoucher(@RequestBody VoucherRequest request) {
+    VoucherListResponse response = coffeeShopService.addVoucher(request);
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
+}
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> createCustomer(@RequestBody OrderRequest request) {
@@ -92,6 +115,7 @@ public class StarsCoffeeController {
         }
     }
 
+    
     @DeleteMapping("/delete-all-customers")
     public ResponseEntity<OrderDeleteResponse> deleteAllCustomers() {
         OrderDeleteResponse response = coffeeShopService.deleteAllCustomers();

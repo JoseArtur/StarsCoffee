@@ -13,4 +13,5 @@ public class OrderRequest implements Serializable {
     private String telephone;
     private String email;
     private String password;
+    private Long points;
 }

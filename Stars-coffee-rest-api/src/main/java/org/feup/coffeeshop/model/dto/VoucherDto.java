@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VoucherDto implements Serializable {
     private Long id;
+    private String userId;
     private String pointsRequired;
     private String voucherCode;
     private String name;

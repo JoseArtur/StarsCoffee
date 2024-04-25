@@ -1,5 +1,6 @@
 package com.example.starscoffee
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -25,8 +26,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-        val userPoints = 10
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val points = sharedPreferences.getInt("points", 0)
+        val userPoints = points
 
         val toggle = ActionBarDrawerToggle(
             this,

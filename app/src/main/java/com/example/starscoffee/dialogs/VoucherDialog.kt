@@ -37,7 +37,6 @@ class VoucherDialog(
         binding.imageViewClose.setOnClickListener {
             dismiss() // Close the dialog when the ImageView is clicked
         }
-
         binding.recyclerAvailableVoucher.setHasFixedSize(true)
         binding.recyclerAvailableVoucher.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -51,8 +50,7 @@ class VoucherDialog(
             //dismiss()
         }
     }
-
-    override fun onStart() {
+ override fun onStart() {
         super.onStart()
         dialog?.apply {
             setCanceledOnTouchOutside(false)
