@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
     }
@@ -96,12 +95,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(Intent(this@MainActivity, RestaurantDetailActivity::class.java))
         }
     }
+
     private fun getCategory() {
         val categories: MutableList<String> = mutableListOf()
         categories.add("Items")
 
         binding.viewPager.let { setupViewPager(it, categories) }
     }
+
     private fun setupViewPager(viewPager: ViewPager, list: List<String>) {
         val viewPagerAdapter = FoodsViewPagerAdapter(supportFragmentManager)
 
@@ -124,6 +125,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         val intent = Intent(this@MainActivity, OrderHistoryActivity::class.java)
                         startActivity(intent)
                     }
+
                     DrawerMenu.VOUCHERS -> {
 
                         // Start OrderHistoryActivity when ORDER_REORDER is clicked
@@ -131,8 +133,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         val intent = Intent(this@MainActivity, VoucherActivity::class.java)
                         startActivity(intent)
                     }
+
                     DrawerMenu.LOGOUT -> {
 
+                        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.clear()
+                        editor.apply()
                         // Start OrderHistoryActivity when ORDER_REORDER is clicked
 
                         val intent = Intent(this@MainActivity, SignupActivity::class.java)

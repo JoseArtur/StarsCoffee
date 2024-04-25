@@ -42,7 +42,7 @@ class SigninActivity : AppCompatActivity() {
         }
     }
     private fun login(email: String, password: String) {
-        val url = "http://172.24.155.55:8090/coffee-shop/login"
+        val url = "http://10.0.2.2:8090/coffee-shop/login"
         val json = "{\"email\":\"$email\", \"password\":\"$password\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
 
@@ -58,7 +58,7 @@ class SigninActivity : AppCompatActivity() {
                 println(response.code())
                 if (response.isSuccessful) {
 // Call /customer-by-email/{email} to get the user data
-                    val customerUrl = "http://172.24.155.55:8090/coffee-shop/customer-by-email/$email"
+                    val customerUrl = "http://10.0.2.2:8090/coffee-shop/customer-by-email/$email"
                     val customerRequest = Request.Builder()
                         .url(customerUrl)
                         .build()
