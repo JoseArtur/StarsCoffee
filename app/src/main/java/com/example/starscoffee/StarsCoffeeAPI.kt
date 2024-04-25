@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 class StarsCoffeeAPI {
     var resp : String = ""
     fun getAllVouchers(): String {
-        val url = "http://10.0.2.2:8090/coffee-shop/get-all-vouchers"
+        val url = "http://172.24.155.55:8090/coffee-shop/get-all-vouchers"
 
         val request = Request.Builder()
             .url(url)
@@ -32,7 +32,7 @@ class StarsCoffeeAPI {
     }
 
     fun getAllFoods(): String {
-        val url = "http://10.0.2.2:8090/coffee-shop/get-all-foods"
+        val url = "http://172.24.155.55:8090/coffee-shop/get-all-foods"
 
         val request = Request.Builder()
             .url(url)

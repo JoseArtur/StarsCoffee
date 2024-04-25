@@ -15,6 +15,16 @@ import com.example.starscoffee.dialogs.PaymentOptionDialog
 import com.example.starscoffee.listeners.ClickListener
 import com.example.starscoffee.models.Foods
 import com.example.starscoffee.models.PaymentChannels
+import com.google.gson.Gson
+
+
+data class OrderInfo(
+    val orderItems: List<Foods>,
+    val paymentMethod: PaymentChannels,
+    val vouchersUsed: List<Voucher>,
+    val totalCost: String
+)
+
 
 class CheckoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckoutBinding
@@ -44,8 +54,18 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         binding.buttonCheckOut.setOnClickListener {
-            startActivity(Intent(this, OrderStatusActivity::class.java))
-            
+            val orderInfo = OrderInfo(
+                orderItems = cartList,
+                paymentMethod = selectedChannel!!,
+                vouchersUsed = voucherList,
+                totalCost = binding.textViewTotal.text.toString()
+            )
+
+            val orderInfoJson = Gson().toJson(orderInfo)
+
+            val intent = Intent(this, OrderStatusActivity::class.java)
+            intent.putExtra("orderInfo", orderInfoJson)
+            startActivity(intent)
         }
 
     }

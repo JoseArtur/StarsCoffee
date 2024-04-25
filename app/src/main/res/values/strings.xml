@@ -6,4 +6,5 @@
     <string name="cart">Cart</string>
     <string name="total_price">%1$.2f €</string>
     <string name="subtotal_price">%1$.2f €</string>
+    <string name="ip">172.24.155.55</string>
 </resources>

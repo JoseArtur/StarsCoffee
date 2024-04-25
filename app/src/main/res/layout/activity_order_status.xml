@@ -3,52 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".OrderStatusActivity">
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/anim_cooking" />
+    android:gravity="center_horizontal"
+    android:padding="16dp">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textViewOrderPlaced"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Your order is placed!"
-        android:textAlignment="center"
-        android:textColor="@color/accentColor"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:text="Your order is placed"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textViewShowQRCode"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="25 - 35 Mins"
-        android:textAlignment="center"
-        android:textColor="@color/accentColor"
-        android:textSize="32dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Expected Delivery Time"
-        android:textAlignment="center"
-        android:textColor="@color/accentColor"
+        android:text="Show this QR-Code"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="16dp"
+        tools:ignore="HardcodedText" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageViewQRCode"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp" />
+    <Button
+        android:id="@+id/buttonBackToMenu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Your food is being prepared and it will be delivered at your doorsteps once it's ready."
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="normal" />
+        android:text="Back to Menu"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
