@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -56,6 +57,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             intent.putExtra("userPoints", userPoints)
             startActivity(intent)
         }
+
+        val welcomeTextView = findViewById<TextView>(R.id.welcomeTextView)
+        val name = sharedPreferences.getString("name", "NOT DEFINED")
+
+        welcomeTextView.text = "Welcome! $name"
     }
 
 
