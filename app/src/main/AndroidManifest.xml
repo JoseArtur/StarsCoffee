@@ -70,7 +70,7 @@
             android:name=".VoucherDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".SigninActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
