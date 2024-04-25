@@ -48,8 +48,8 @@ public class StarsCoffeeController {
     }
 
     @GetMapping("/get-all-vouchers")
-    public ResponseEntity<VoucherListResponse> getAllVouchers() {
-        VoucherListResponse response = coffeeShopService.getAllVouchers();
+    public ResponseEntity<VoucherListResponse> getAllVouchers(@RequestParam(value = "userId", required = false, defaultValue = "") String userId) {
+        VoucherListResponse response = coffeeShopService.getAllVouchers(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package org.feup.coffeeshop.repository;
 
+import java.util.List;
 import java.util.Optional;
 import org.feup.coffeeshop.model.entity.VoucherRequestEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VoucherRepository extends JpaRepository<VoucherRequestEntity, Long> {
-
+    List<VoucherRequestEntity> findByUserId(String userId);
 }

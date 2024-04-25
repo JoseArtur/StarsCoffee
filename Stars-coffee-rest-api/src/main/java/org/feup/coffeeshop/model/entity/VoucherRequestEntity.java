@@ -31,6 +31,8 @@ public class VoucherRequestEntity {
     @Column
     private String pointsRequired;
     @Column
+    private String userId;
+    @Column
     private String voucherCode;
     @Column
     private String name;
