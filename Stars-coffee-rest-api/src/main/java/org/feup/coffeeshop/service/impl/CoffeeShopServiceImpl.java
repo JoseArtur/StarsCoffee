@@ -1,13 +1,13 @@
 package org.feup.coffeeshop.service.impl;
 
-import org.feup.coffeeshop.model.dto.AvailableItemsDto;
+import org.feup.coffeeshop.model.dto.FoodsDto;
 import org.feup.coffeeshop.model.dto.PurchaseDto;
-import org.feup.coffeeshop.model.entity.AvailableItemsRequestEntity;
+import org.feup.coffeeshop.model.entity.FoodsRequestEntity;
 import org.feup.coffeeshop.model.entity.LoginRequestEntity;
 import org.feup.coffeeshop.model.entity.PurchaseRequestEntity;
 import org.feup.coffeeshop.model.request.PurchaseRequest;
-import org.feup.coffeeshop.model.response.AvailableItemsListResponse;
-import org.feup.coffeeshop.repository.AvailableItemsRepository;
+import org.feup.coffeeshop.model.response.FoodsListResponse;
+import org.feup.coffeeshop.repository.FoodsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
 import org.feup.coffeeshop.model.converter.StarsCoffeeConverter;
 import org.feup.coffeeshop.model.dto.UserDto;
@@ -39,16 +39,16 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     private final VoucherRepository voucherRepository;
     private final LoginRepository loginRepository;
 
-    private final AvailableItemsRepository availableItemsRepository;
+    private final FoodsRepository foodsRepository;
 
     private final PurchaseRepository purchaseRepository;
 
     public CoffeeShopServiceImpl(CoffeeRepository repository, StarsCoffeeConverter starsCoffeeConverter, LoginRepository loginRepository,
-    AvailableItemsRepository availableItemsRepository, PurchaseRepository purchaseRepository, VoucherRepository voucherRepository) {
+                                 FoodsRepository foodsRepository, PurchaseRepository purchaseRepository, VoucherRepository voucherRepository) {
         this.repository = repository;
         this.starsCoffeeConverter = starsCoffeeConverter;
         this.loginRepository = loginRepository;
-        this.availableItemsRepository = availableItemsRepository;
+        this.foodsRepository = foodsRepository;
         this.purchaseRepository = purchaseRepository;
         this.voucherRepository = voucherRepository;
     }
@@ -146,15 +146,15 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     }
 
     @Override
-    public AvailableItemsListResponse getAvailableItems() {
-        final List<AvailableItemsRequestEntity> entities = availableItemsRepository.findAll();
+    public FoodsListResponse getFoods() {
+        final List<FoodsRequestEntity> entities = foodsRepository.findAll();
 
-        final List<AvailableItemsDto> converted = entities
+        final List<FoodsDto> converted = entities
                 .stream()
-                .map(starsCoffeeConverter::toAvailableItemsDto)
+                .map(starsCoffeeConverter::toFoodsDto)
                 .collect(Collectors.toList());
 
-        return AvailableItemsListResponse.builder().availableItems(converted).build();
+        return FoodsListResponse.builder().foods(converted).build();
     }
 
 }

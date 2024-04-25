@@ -7,7 +7,7 @@ import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
-import org.feup.coffeeshop.repository.AvailableItemsRepository;
+import org.feup.coffeeshop.repository.FoodsRepository;
 import org.feup.coffeeshop.repository.CoffeeRepository;
 import org.feup.coffeeshop.repository.LoginRepository;
 import org.feup.coffeeshop.repository.VoucherRepository;
@@ -43,7 +43,7 @@ class CoffeeShopServiceTest extends BaseServiceTest {
     private LoginRepository loginRepository;
 
     @MockBean
-    private AvailableItemsRepository availableItemsRepository;
+    private FoodsRepository foodsRepository;
 
     @MockBean
     private PurchaseRepository purchaseRepository;
@@ -62,7 +62,7 @@ class CoffeeShopServiceTest extends BaseServiceTest {
         orderRequestEntity.setId(CUSTOMER_ID);
         userDto = starsCoffeeConverter.toDto(orderRequestEntity);
         orderListResponse = OrderListResponse.builder().customers(Collections.singletonList(userDto)).build();
-        coffeeShopService = new CoffeeShopServiceImpl(repository, starsCoffeeConverter, loginRepository, availableItemsRepository, purchaseRepository, voucherRepository);
+        coffeeShopService = new CoffeeShopServiceImpl(repository, starsCoffeeConverter, loginRepository, foodsRepository, purchaseRepository, voucherRepository);
     }
 
     @Test

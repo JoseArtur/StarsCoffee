@@ -6,11 +6,15 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AvailableItemsRequest implements Serializable {
-    private String itemName;
+public class FoodsRequest implements Serializable {
+    private String foodName;
     private String description;
+    private Double price;
     private String itemType;
     private String imageUrl;
+    private Integer isFavorite;
+    private Integer isAvailable;
+    private Integer quantity;
     private String customizationOptions;
     private String specialAttributes;
 }

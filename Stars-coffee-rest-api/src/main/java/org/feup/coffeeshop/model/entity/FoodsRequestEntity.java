@@ -1,6 +1,5 @@
 package org.feup.coffeeshop.model.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -23,26 +23,35 @@ import org.hibernate.annotations.Where;
 @ToString
 @AllArgsConstructor
 @Table(name = "STOCK_ITEMS")
-public class AvailableItemsRequestEntity {
+public class FoodsRequestEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column
-    private String itemName;
+    private String foodName;
 
     @Column
     private String description;
 
     @Column
+    private Double price;
+
+    @Column
     private String itemType;
 
     @Column
-    private String price;
+    private String imageUrl;
 
     @Column
-    private String imageUrl;
+    private int isFavorite;
+
+    @Column
+    private int isAvailable;
+
+    @Column
+    private int quantity;
 
     @Column
     private String customizationOptions;

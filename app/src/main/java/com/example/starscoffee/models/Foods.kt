@@ -1,19 +1,28 @@
 package com.example.starscoffee.models
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.Gson
 import java.io.Serializable
+
+data class FoodsResponse(
+    val foods: List<Foods>
+)
 
 data class Foods(
     val id: Int,
-    @SerializedName("name")
     var foodName: String,
-    @SerializedName("description")
     var description: String,
-    @SerializedName("price")
-    var price: Int,
-    @SerializedName("image_url")
-    var image_url: String,
-    var isFavorite: Boolean = false,
-    var isAvailable: Boolean = true,
-    var quantity: Int = 1
+    var price: Double,
+    var itemType: String,
+    var imageUrl: String,
+    var isFavorite: Int = 0,
+    var isAvailable: Int = 1,
+    var quantity: Int = 1,
+    var customizationOptions: String,
+    var specialAttributes: String
 ) : Serializable
+
+fun parseJsonToFoodsList(jsonString: String): List<Foods> {
+    val gson = Gson()
+    val foodsResponse = gson.fromJson(jsonString, FoodsResponse::class.java)
+    return foodsResponse.foods
+}

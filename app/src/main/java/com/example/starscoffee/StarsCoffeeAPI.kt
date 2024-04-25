@@ -1,19 +1,16 @@
 package com.example.starscoffee
 
-import com.evanemran.quickfoods.models.Voucher
 import okhttp3.*
 import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import com.evanemran.quickfoods.models.parseJsonToVouchersList
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class StarsCoffeeAPI {
+    var resp : String = ""
     fun getAllVouchers(): String {
-        val url = "http://192.168.56.1:8090/coffee-shop/get-all-vouchers"
+        val url = "http://10.0.2.2:8090/coffee-shop/get-all-vouchers"
 
         val request = Request.Builder()
             .url(url)
@@ -32,13 +29,35 @@ class StarsCoffeeAPI {
             println("Vouchers1: $vouchers")
         }
         return v2
+    }
 
+    fun getAllFoods(): String {
+        val url = "http://10.0.2.2:8090/coffee-shop/get-all-foods"
+
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        var foodsString = ""
+        val foodsDeferred = GlobalScope.async(Dispatchers.IO) {
+            callRequest(request)
+        }
+
+        runBlocking {
+            // Wait for the result and access the list of vouchers
+            val foods = foodsDeferred.await()
+            foodsString = foods.toString()
+            // Process the list of vouchers as needed
+            println("Foods: $foods")
+        }
+        return foodsString
     }
 
     suspend fun callRequest(request: Request): String? {
         val client = OkHttpClient()
         return try {
             val response: Response = client.newCall(request).execute()
+            println(response)
             if (response.isSuccessful) {
                 response.body()?.string()
             } else {

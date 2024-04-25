@@ -6,12 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.feup.coffeeshop.model.dto.AvailableItemsDto;
+import org.feup.coffeeshop.model.dto.FoodsDto;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AvailableItemsListResponse implements Serializable {
-    private List<AvailableItemsDto> availableItems;
+public class FoodsListResponse implements Serializable {
+    private List<FoodsDto> foods;
 }

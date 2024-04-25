@@ -24,9 +24,10 @@ class FoodListAdapter(
     override fun onBindViewHolder(holder: FoodListViewHolder, position: Int) {
         val item = list[holder.adapterPosition]
 
-        Picasso.get().load(item.image_url).into(holder.binding.imageViewFoods)
+        Picasso.get().load(item.imageUrl).into(holder.binding.imageViewFoods)
         holder.binding.textViewFoodName.text = item.foodName
         holder.binding.textViewFoodInfo.text = item.description
+        holder.binding.textViewFoodPrice.text = item.price.toString()
 
         holder.binding.foodListContainer.setOnClickListener {
             listener.onClicked(item)

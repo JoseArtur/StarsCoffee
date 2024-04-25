@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.feup.coffeeshop.model.dto.AvailableItemsDto;
+import org.feup.coffeeshop.model.dto.FoodsDto;
 import org.feup.coffeeshop.model.dto.PurchaseDto;
 
 @Data

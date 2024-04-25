@@ -7,13 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.starscoffee.adapters.DealsAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.starscoffee.adapters.DrawerAdapter
-import com.example.starscoffee.adapters.ServiceAdapter
+import com.example.starscoffee.adapters.FoodsViewPagerAdapter
 import com.example.starscoffee.databinding.ActivityMainBinding
+import com.example.starscoffee.fragments.FoodListFragment
 import com.example.starscoffee.listeners.ClickListener
-import com.example.starscoffee.models.Deals
 import com.example.starscoffee.models.DrawerMenu
 import com.example.starscoffee.models.Service
 import com.google.android.material.navigation.NavigationView
@@ -41,8 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.navView.setNavigationItemSelectedListener(this)
 
-        setupServices()
-        setupDeals()
+        getCategory()
         setupNavMenu()
 
         setupPointsMenu(userPoints)
@@ -75,39 +73,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-
-    private fun setupDeals() {
-        val deals: MutableList<Deals> = mutableListOf()
-        deals.add(Deals(0, R.drawable.deals))
-        deals.add(Deals(1, R.drawable.deals))
-        deals.add(Deals(2, R.drawable.deals))
-        deals.add(Deals(3, R.drawable.deals))
-        deals.add(Deals(4, R.drawable.deals))
-        deals.add(Deals(5, R.drawable.deals))
-        deals.add(Deals(6, R.drawable.deals))
-
-        binding.recyclerDeals.setHasFixedSize(true)
-        binding.recyclerDeals.isNestedScrollingEnabled = false
-        binding.recyclerDeals.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val dealsAdapter = DealsAdapter(this, deals, dealsClickListener)
-        binding.recyclerDeals.adapter = dealsAdapter
-    }
-
     private fun setupPointsMenu(points: Int) {
         binding.pointsButton.run { binding.pointsButton.setText(points.toString()) }
     }
 
-    private fun setupServices() {
-        val services: MutableList<Service> = mutableListOf()
-        services.add(Service.ITEMS)
-        binding.recyclerService.setHasFixedSize(true)
-        binding.recyclerService.isNestedScrollingEnabled = false
-        binding.recyclerService.layoutManager =
-            StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-        val serviceAdapter = ServiceAdapter(this, services, servicesClickListener)
-        binding.recyclerService.adapter = serviceAdapter
-    }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
@@ -118,13 +88,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(Intent(this@MainActivity, RestaurantDetailActivity::class.java))
         }
     }
+    private fun getCategory() {
+        val categories: MutableList<String> = mutableListOf()
+        categories.add("Items")
 
-    private val dealsClickListener: ClickListener<Deals> = object : ClickListener<Deals> {
-        override fun onClicked(data: Deals) {
-            Toast.makeText(this@MainActivity, "Clicked!", Toast.LENGTH_SHORT).show()
+        binding.viewPager.let { setupViewPager(it, categories) }
+    }
+    private fun setupViewPager(viewPager: ViewPager, list: List<String>) {
+        val viewPagerAdapter = FoodsViewPagerAdapter(supportFragmentManager)
+
+        for (item in list) {
+            val fragment = FoodListFragment()
+            viewPagerAdapter.addFragment(fragment, item)
         }
 
+        viewPager.adapter = viewPagerAdapter
+        binding.tabLayout.setupWithViewPager(viewPager)
     }
+
 
     private val drawerClickListener: ClickListener<DrawerMenu> =
         object : ClickListener<DrawerMenu> {

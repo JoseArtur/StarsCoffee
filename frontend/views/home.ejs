@@ -16,9 +16,9 @@
 </div>
 
 <script>
-    // Function to fetch available items from the API
-    function fetchAvailableItems() {
-        fetch('http://localhost:8090/coffee-shop/get-available-items', {
+    // Function to fetch foods from the API
+    function fetchFoods() {
+        fetch('http://localhost:8090/coffee-shop/get-foods', {
             method: 'POST', // Making a POST request
             headers: {
                 'Content-Type': 'application/json'
@@ -44,12 +44,12 @@
             });
         })
         .catch(error => {
-            console.error('Error fetching available items:', error);
+            console.error('Error fetching foods:', error);
         });
     }
 
-    // Call the fetchAvailableItems function when the page loads
-    window.onload = fetchAvailableItems;
+    // Call the fetchFoods function when the page loads
+    window.onload = fetchFoods;
 </script>
 </body>
 </html>

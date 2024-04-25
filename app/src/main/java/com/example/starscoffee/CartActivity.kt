@@ -18,7 +18,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     var tempUserPoints = 0
     var permUserPoints = 0
-    var voucherTotal = 0
+    var voucherTotal = 0.0
     var voucherList: MutableList<Voucher> = mutableListOf()
 
     companion object {
@@ -82,16 +82,18 @@ class CartActivity : AppCompatActivity() {
 
     // Function to calculate the total
     fun calcutateTotal() {
+        
         val total = cartList.sumOf { it.price * it.quantity }
         val textViewTotal = findViewById<TextView>(R.id.textView_total)
-        textViewTotal.text = getString(R.string.total_price, total)
+        textViewTotal.text = total.toString()
     }
 
     // Function to calculate the subtotal
     fun calculateSubTotal() {
         val subTotal = cartList.sumOf { it.price * it.quantity }
         val textViewSubTotal = findViewById<TextView>(R.id.textView_subTotal)
-        textViewSubTotal.text = getString(R.string.subtotal_price, subTotal)
+        textViewSubTotal.text = subTotal.toString()
+    // textViewSubTotal.text = subTotal.toString()
     }
 
     private val cartClickListener: ClickListener<Foods> = object :
@@ -111,11 +113,12 @@ class CartActivity : AppCompatActivity() {
                 ).show()
 
                 // Calculate the new subtotal after applying the coupon
-                voucherTotal += data.value
+                voucherTotal = data.value
                 var total = cartList.sumOf { it.price * it.quantity }
+                println(total)
                 if (voucherTotal > total) {
                     voucherTotal = total
-                    total = 0
+                    total = 0.0
                 }
                 else {
                     total -= voucherTotal
