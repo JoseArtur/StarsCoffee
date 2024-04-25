@@ -15,7 +15,7 @@ public interface CoffeeShopService {
 
     OrderListResponse getAllCustomers();
 
-    VoucherListResponse getAllVouchers();
+    VoucherListResponse getAllVouchers(String userId);
 
     UserDto createCustomer(OrderRequest request);
 

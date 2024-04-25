@@ -76,8 +76,8 @@ public class CoffeeShopServiceImpl implements CoffeeShopService {
     }
 
     @Override
-    public VoucherListResponse getAllVouchers() {
-        final List<VoucherRequestEntity> entities = voucherRepository.findAll();
+    public VoucherListResponse getAllVouchers(String userId) {
+        final List<VoucherRequestEntity> entities = voucherRepository.findByUserId(userId);
 
         final List<VoucherDto> converted = entities
                 .stream()
