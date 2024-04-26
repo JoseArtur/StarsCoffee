@@ -3,6 +3,8 @@ package com.example.starscoffee
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -58,46 +60,60 @@ class SigninActivity : AppCompatActivity() {
                 println(response.code())
                 if (response.isSuccessful) {
 // Call /customer-by-email/{email} to get the user data
-                    val customerUrl = "http://172.24.155.55:8090/coffee-shop/customer-by-email/$email"
-                    val customerRequest = Request.Builder()
-                        .url(customerUrl)
-                        .build()
+                    val handler = Handler(Looper.getMainLooper())
+                    val runnableCode = object : Runnable {
+                        override fun run() {
+                            // Call /customer-by-email/{email} to get the user data
+                            val customerUrl = "http://172.24.155.55:8090/coffee-shop/customer-by-email/$email"
+                            val customerRequest = Request.Builder()
+                                .url(customerUrl)
+                                .build()
 
-                    client.newCall(customerRequest).enqueue(object : Callback {
-                        override fun onResponse(call: Call, response: Response) {
-                            if (response.isSuccessful) {
-                                // Parse the JSON response to get the user info
-                                val userInfoJson = response.body()?.string()
-                                val jsonObject = JSONObject(userInfoJson)
-                                val customersArray = jsonObject.getJSONArray("customers")
-                                val userInfo = customersArray.getJSONObject(0)
+                            client.newCall(customerRequest).enqueue(object : Callback {
+                                override fun onResponse(call: Call, response: Response) {
+                                    if (response.isSuccessful) {
 
-                                val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                                        // Parse the JSON response to get the user info
+                                        val userInfoJson = response.body()?.string()
+                                        val jsonObject = JSONObject(userInfoJson)
+                                        val customersArray = jsonObject.getJSONArray("customers")
+                                        val userInfo = customersArray.getJSONObject(0)
 
-                                val editor = sharedPreferences.edit()
-                                editor.putString("name", userInfo.getString("name"))
-                                editor.putString("nif", userInfo.getString("nif"))
-                                editor.putString("telephone", userInfo.getString("telephone"))
-                                editor.putString("email", userInfo.getString("email"))
-                                editor.putInt("points", userInfo.getInt("points"))
-                                editor.apply()
+                                        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
-                                val intent = Intent(this@SigninActivity, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                runOnUiThread {
-                                    Toast.makeText(this@SigninActivity, "Failed to get user data", Toast.LENGTH_SHORT).show()
+                                        val editor = sharedPreferences.edit()
+                                        editor.putString("name", userInfo.getString("name"))
+                                        editor.putString("nif", userInfo.getString("nif"))
+                                        editor.putString("telephone", userInfo.getString("telephone"))
+                                        editor.putString("email", userInfo.getString("email"))
+                                        editor.putInt("points", userInfo.getInt("points"))
+                                        editor.apply()
+
+                                        val intent = Intent(this@SigninActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        runOnUiThread {
+                                            Toast.makeText(this@SigninActivity, "Failed to get user data", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
                                 }
-                            }
-                        }
 
-                        override fun onFailure(call: Call, e: IOException) {
-                            runOnUiThread {
-                                Toast.makeText(this@SigninActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
+                                override fun onFailure(call: Call, e: IOException) {
+                                    runOnUiThread {
+                                        Toast.makeText(this@SigninActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            })
+
+                            // Repeat this runnable code block again every 40 seconds
+                            handler.postDelayed(this, 40000)
                         }
-                    })
+                    }
+
+// Start the initial runnable task by posting through the handler
+                    handler.post(runnableCode)
+
                 } else {
                     runOnUiThread {
                         Toast.makeText(this@SigninActivity, "Login failed", Toast.LENGTH_SHORT).show()

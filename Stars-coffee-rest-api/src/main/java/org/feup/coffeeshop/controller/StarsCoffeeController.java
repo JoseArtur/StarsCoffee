@@ -26,7 +26,7 @@ public class StarsCoffeeController {
         this.coffeeShopService = coffeeShopService;
     }
 
-    @GetMapping("/  /{id}")
+    @GetMapping("/customer/{id}")
     public ResponseEntity<OrderListResponse> getCustomer(@PathVariable("id") Long id) {
         OrderListResponse response = coffeeShopService.getCustomer(id);
 
