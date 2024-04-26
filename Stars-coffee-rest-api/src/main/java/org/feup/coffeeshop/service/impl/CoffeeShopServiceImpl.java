@@ -18,6 +18,8 @@ import org.feup.coffeeshop.repository.VoucherRepository;
 import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.entity.OrderRequestEntity;
 import org.feup.coffeeshop.model.request.OrderRequest;
+import org.feup.coffeeshop.model.request.SummaryRequest;
+import org.feup.coffeeshop.model.dto.SummaryDto;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
 import org.feup.coffeeshop.model.response.OrderListResponse;
 import org.feup.coffeeshop.repository.LoginRepository;
@@ -31,6 +33,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class CoffeeShopServiceImpl implements CoffeeShopService {
@@ -180,6 +184,41 @@ public UserDto updateCustomer(Long id, OrderRequest request) {
 
         return FoodsListResponse.builder().foods(converted).build();
     }
+    
+@Override
+public OrderListResponse validateOrder(SummaryRequest request) {
+
+    final OrderRequestEntity optionalCustomerEntity = repository.findByEmail(request.getUserEmail());
+    final OrderRequestEntity entities = repository.findByEmail(request.getUserEmail());
+
+    if (optionalCustomerEntity == null) {
+        System.out.println("Customer with email: " + request.getUserEmail() + " not found.");
+        return null;
+    } else {
+        System.out.println("Customer with email: " + request.getUserEmail() + " found.");
+        Long userPoints = optionalCustomerEntity.getPoints();
+        int sumOfVoucherPoints = 0;
+
+        for (VoucherRequest voucher : request.getVouchersUsed()) {
+            sumOfVoucherPoints += parseInt(voucher.getPointsRequired());
+            System.out.println("Voucher points required: " + voucher.getPointsRequired());
+        }
+
+        System.out.println("User points: " + userPoints);
+        System.out.println("Sum of voucher points: " + sumOfVoucherPoints);
+
+        if (sumOfVoucherPoints > userPoints) {
+            System.out.println("Insufficient points for the vouchers.");
+            return null;
+        } else {
+            System.out.println("Sufficient points for the vouchers.");
+            // if the user has sufficient points for the vouchers, then deduct the points from the user
+            optionalCustomerEntity.setPoints(userPoints - sumOfVoucherPoints);
+            final OrderRequestEntity saved = repository.save(optionalCustomerEntity);
+            return OrderListResponse.builder().customers(Collections.singletonList(starsCoffeeConverter.toDto(entities))).build();
+        }
+    }
+}
 
 }
 

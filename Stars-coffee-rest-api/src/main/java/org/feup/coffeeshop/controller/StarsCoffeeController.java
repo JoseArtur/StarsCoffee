@@ -1,10 +1,12 @@
 package org.feup.coffeeshop.controller;
 
 import org.feup.coffeeshop.model.dto.PurchaseDto;
+import org.feup.coffeeshop.model.dto.SummaryDto;
 import org.feup.coffeeshop.model.dto.UserDto;
 import org.feup.coffeeshop.model.request.OrderRequest;
 import org.feup.coffeeshop.model.request.PurchaseRequest;
 import org.feup.coffeeshop.model.request.VoucherRequest;
+import org.feup.coffeeshop.model.request.SummaryRequest;
 import org.feup.coffeeshop.model.response.FoodsListResponse;
 import org.feup.coffeeshop.model.response.VoucherListResponse;
 import org.feup.coffeeshop.model.response.OrderDeleteResponse;
@@ -24,7 +26,7 @@ public class StarsCoffeeController {
         this.coffeeShopService = coffeeShopService;
     }
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/  /{id}")
     public ResponseEntity<OrderListResponse> getCustomer(@PathVariable("id") Long id) {
         OrderListResponse response = coffeeShopService.getCustomer(id);
 
@@ -86,10 +88,20 @@ public class StarsCoffeeController {
         return new ResponseEntity<>(coffeeShopService.createPurchase(request), HttpStatus.CREATED);
     }
 
-    @PostMapping("/validate-order")
-    public ResponseEntity<UserDto> validateOrder(@RequestBody OrderRequest request) {
-        return new ResponseEntity<>(coffeeShopService.createCustomer(request), HttpStatus.CREATED);
+  @PostMapping("/validate-order")
+public ResponseEntity<OrderListResponse> validateOrder(@RequestBody SummaryRequest request) {
+    System.out.println("Received request to validate order for user:"+ request.getUserEmail());
+
+    OrderListResponse response = coffeeShopService.validateOrder(request);
+
+    if (response == null) {
+        System.out.println("Order validation failed for user: "+request.getUserEmail());
+    } else {
+        System.out.println("Order validation succeeded for user: "+request.getUserEmail());
     }
+
+    return new ResponseEntity<>(response, HttpStatus.CREATED);
+}
 
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody OrderRequest request) {

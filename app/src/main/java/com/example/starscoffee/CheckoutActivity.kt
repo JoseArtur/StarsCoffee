@@ -1,5 +1,6 @@
 package com.example.starscoffee
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -25,7 +26,8 @@ data class OrderInfo(
     val orderItems: List<Foods>,
     val paymentMethod: PaymentChannels,
     val vouchersUsed: List<Voucher>,
-    val totalCost: String
+    val totalCost: String,
+    val userEmail: String
 )
 
 
@@ -55,16 +57,37 @@ class CheckoutActivity : AppCompatActivity() {
             )
             postDialog.show(supportFragmentManager, "payment")
         }
-
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "jose@feup.pt")
+        println("Email: $email")
         binding.buttonCheckOut.setOnClickListener {
-            val orderInfo = OrderInfo(
-                orderItems = cartList,
-                paymentMethod = selectedChannel!!,
-                vouchersUsed = voucherList,
-                totalCost = binding.textViewTotal.text.toString()
-            )
-
+            val orderInfo = email?.let { it1 ->
+                OrderInfo(
+                    orderItems = cartList,
+                    paymentMethod = selectedChannel!!,
+                    vouchersUsed = voucherList,
+                    totalCost = binding.textViewTotal.text.toString(),
+                    userEmail = it1
+                )
+            }
+            if (orderInfo != null) {
+                for (item in orderInfo.orderItems) {
+                    item.imageUrl = ""
+                    item.description = ""
+                    item.customizationOptions = ""
+                }
+            }
+            if (orderInfo != null) {
+                for (item in orderInfo.vouchersUsed) {
+                    item.image_url = ""
+                    item.description = ""
+                }
+            }
             val orderInfoJson = Gson().toJson(orderInfo)
+
+            // do a for loop in the orderInfoJson to change all orderItems: imageUrl to ""
+
+
 println("Order Info: $orderInfoJson")
             val byteArray = orderInfoJson.toByteArray(Charsets.UTF_8)
            println("Order Info: $byteArray")
