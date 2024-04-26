@@ -13,7 +13,7 @@ class StarsCoffeeAPI {
     fun getAllVouchers(userId: String): String {
         val httpUrl = HttpUrl.Builder()
             .scheme("http")
-            .host("10.0.2.2")
+            .host("172.24.155.55")
             .port(8090)
             .addPathSegment("coffee-shop")
             .addPathSegment("get-all-vouchers")
@@ -40,7 +40,7 @@ class StarsCoffeeAPI {
     }
 
     fun getAllFoods(): String {
-        val url = "http://10.0.2.2:8090/coffee-shop/get-all-foods"
+        val url = "http://172.24.155.55:8090/coffee-shop/get-all-foods"
 
         val request = Request.Builder()
             .url(url)

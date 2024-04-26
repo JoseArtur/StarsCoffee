@@ -50,7 +50,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun login(email: String, password: String) {
-        val url = "http://10.0.2.2:8090/coffee-shop/login"
+        val url = "http://172.24.155.55:8090/coffee-shop/login"
         val json = "{\"email\":\"$email\",\"password\":\"$password\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
 
@@ -95,7 +95,7 @@ class SignupActivity : AppCompatActivity() {
         telephone: String,
         password: String
     ) {
-        val url = "http://10.0.2.2:8090/coffee-shop/register"
+        val url = "http://172.24.155.55:8090/coffee-shop/register"
         val json =
             "{\"email\":\"$email\", \"name\":\"$name\", \"nif\":\"$nif\", \"password\":\"$password\", \"telephone\":\"$telephone\", \"points\":\"0\"}"
         val requestBody = RequestBody.create(MediaType.parse("application/json"), json)
